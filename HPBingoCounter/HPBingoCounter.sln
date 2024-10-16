@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPBingoCounter", "HPBingoCounter\HPBingoCounter.csproj", "{2F9EF10D-1E5F-45F6-9ED4-EDD0D730E7DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPBingoCounter.Core", "HPBingoCounter.Core\HPBingoCounter.Core.csproj", "{E6DC22EC-C57E-499B-869A-FA26838A2896}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F9EF10D-1E5F-45F6-9ED4-EDD0D730E7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9EF10D-1E5F-45F6-9ED4-EDD0D730E7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9EF10D-1E5F-45F6-9ED4-EDD0D730E7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9EF10D-1E5F-45F6-9ED4-EDD0D730E7DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6DC22EC-C57E-499B-869A-FA26838A2896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6DC22EC-C57E-499B-869A-FA26838A2896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6DC22EC-C57E-499B-869A-FA26838A2896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6DC22EC-C57E-499B-869A-FA26838A2896}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64F9F41E-D652-45D5-A56B-4FA0ED611257}
+	EndGlobalSection
+EndGlobal
