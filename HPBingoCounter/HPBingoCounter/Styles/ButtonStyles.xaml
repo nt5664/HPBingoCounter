@@ -11,6 +11,21 @@
     </Style>
 
     <Style
+        x:Key="DefaultButtonBorder"
+        TargetType="{x:Type Border}"
+        BasedOn="{StaticResource ButtonBorderBase}">
+        <Setter Property="Background" Value="Gainsboro" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="GhostWhite" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" Value="Gainsboro" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
         x:Key="CloseButtonBorder"
         TargetType="{x:Type Border}"
         BasedOn="{StaticResource ButtonBorderBase}">
@@ -25,6 +40,26 @@
         </Style.Triggers>
     </Style>
 
+    <Style
+        x:Key="DefaultButtonStyle"
+        TargetType="{x:Type Button}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="4" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Style="{StaticResource DefaultButtonBorder}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style
         x:Key="CloseButtonStyle"
         TargetType="{x:Type Button}">

@@ -12,19 +12,19 @@ namespace HPBingoCounter.ViewModels
 
         private readonly HPBingoService _bingoService;
 
-        public NewBoardDetailsViewModel(HPBingoService bingoService)
+        public NewBoardDetailsViewModel(HPBingoService bingoService, DelegateCommand newBoardCommand, DelegateCommand cancelCommand)
         {
             _bingoService = bingoService;
+            CancelCommand = cancelCommand;
+            RequestNewBoardCommand = newBoardCommand;
             AvailableVersions = new ObservableCollection<string>();
-
-
 
             RefreshAvailableVersions();
         }
 
-        public DelegateCommand CancelCommand { get; set; }
+        public DelegateCommand CancelCommand { get; }
 
-        public DelegateCommand RequestNewBoardCommand { get; set; }
+        public DelegateCommand RequestNewBoardCommand { get; }
 
         private string? _seed;
         public string? Seed

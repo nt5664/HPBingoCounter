@@ -15,8 +15,13 @@ namespace HPBingoCounter.ViewModels
         public MainViewModel()
         {
             _service = new HPBingoService();
-            NewBoardViewModel = new NewBoardDetailsViewModel(_service);
-            NewBoardViewModel.CancelCommand = new DelegateCommand(_ => SelectNewBoard = false);
+            NewBoardViewModel = new NewBoardDetailsViewModel(
+                _service,
+                new DelegateCommand(_ =>
+                {
+                    SelectNewBoard = false;
+                }),
+                new DelegateCommand(_ => SelectNewBoard = false));
 
             SelectNewBoard = false;
             ShowNewBoardDetailsCommand = new DelegateCommand(_ => 
