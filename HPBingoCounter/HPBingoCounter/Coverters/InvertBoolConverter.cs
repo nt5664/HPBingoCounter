@@ -6,6 +6,7 @@ namespace HPBingoCounter.Coverters
 {
     internal class InvertBoolConverter : MarkupExtension, IValueConverter
     {
+        #region MarkupExtension overrides
         public static InvertBoolConverter Instance { get; }
 
         static InvertBoolConverter()
@@ -17,6 +18,7 @@ namespace HPBingoCounter.Coverters
         {
             return Instance;
         }
+        #endregion
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
