@@ -2,6 +2,6 @@
 {
     public static class HPBingoConstants
     {
-        public static readonly string CONFIG_FILE = "appconfig.json";
+        public static readonly string CONFIG_FILE = @"Config\appconfig.json";
     }
 }

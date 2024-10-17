@@ -19,7 +19,7 @@ namespace HPBingoCounter.Core.Config
 
         public static IConfig? ReloadConfig()
         {
-            string configString = File.ReadAllText($@"{Assembly.GetExecutingAssembly().Location}\{HPBingoConstants.CONFIG_FILE}");
+            string configString = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\{HPBingoConstants.CONFIG_FILE}");
             Current = JsonConvert.DeserializeObject<HPBingoConfig>(configString)
                 ?? throw new ApplicationException("Cannot load config data");
 
