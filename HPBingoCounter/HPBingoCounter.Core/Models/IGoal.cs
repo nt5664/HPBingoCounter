@@ -9,7 +9,6 @@ namespace HPBingoCounter.Core.Models
 {
     public interface IGoal
     {
-        string? Id { get; }
         string? Name { get; }
         bool CollectMultiple { get; }
         int RequiredAmount { get; }

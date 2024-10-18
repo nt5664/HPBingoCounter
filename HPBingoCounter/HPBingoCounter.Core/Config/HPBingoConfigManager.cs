@@ -10,6 +10,8 @@ namespace HPBingoCounter.Core.Config
 {
     public static class HPBingoConfigManager
     {
+        private const string URL_WILDCARD = "???";
+
         static HPBingoConfigManager()
         {
             ReloadConfig();
@@ -24,6 +26,26 @@ namespace HPBingoCounter.Core.Config
                 ?? throw new ApplicationException("Cannot load config data");
 
             return Current;
+        }
+
+        public static string GetGeneratorUrlForVersion(string version)
+        {
+            if (Current is null || string.IsNullOrEmpty(Current.GeneratorUrl))
+                throw new InvalidOperationException("Invalid config, reload and try again");
+
+            ArgumentNullException.ThrowIfNull(version);
+
+            return Current.GeneratorUrl.Replace(URL_WILDCARD, version);
+        }
+
+        public static string GetGoalsUrlForVersion(string version)
+        {
+            if (Current is null || string.IsNullOrEmpty(Current.GoalsUrl))
+                throw new InvalidOperationException("Invalid config, reload and try again");
+
+            ArgumentNullException.ThrowIfNull(version);
+
+            return Current.GoalsUrl.Replace(URL_WILDCARD, version);
         }
     }
 }
