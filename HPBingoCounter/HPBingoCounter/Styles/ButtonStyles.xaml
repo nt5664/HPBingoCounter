@@ -26,7 +26,7 @@
     </Style>
 
     <Style
-        x:Key="CloseButtonBorder"
+        x:Key="RedButtonBorder"
         TargetType="{x:Type Border}"
         BasedOn="{StaticResource ButtonBorderBase}">
         <Setter Property="Background" Value="Crimson" />
@@ -36,6 +36,21 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="Crimson" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="GreenButtonBorder"
+        TargetType="{x:Type Border}"
+        BasedOn="{StaticResource ButtonBorderBase}">
+        <Setter Property="Background" Value="ForestGreen" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="YellowGreen" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" Value="ForestGreen" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -59,31 +74,52 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style
-        x:Key="CloseButtonStyle"
-        TargetType="{x:Type Button}">
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Margin" Value="4" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Background" Value="Transparent" />
+        x:Key="RedButtonStyle"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource DefaultButtonStyle}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Style="{StaticResource CloseButtonBorder}">
-                        <Canvas 
-                            Width="24" 
-                            Height="24" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Center">
-                            <Path 
-                                Fill="Black" 
-                                Data="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />
-                        </Canvas>
+                    <Border Style="{StaticResource RedButtonBorder}">
+                        <ContentPresenter />
                     </Border>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="GreenButtonStyle"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Style="{StaticResource GreenButtonBorder}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="CloseButtonStyle"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource RedButtonStyle}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Canvas 
+                    Width="24" 
+                    Height="24" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center">
+                    <Path 
+                        Fill="Black" 
+                        Data="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />
+                </Canvas>
             </Setter.Value>
         </Setter>
     </Style>
