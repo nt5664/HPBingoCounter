@@ -1,16 +1,11 @@
-﻿using HPBingoCounter.Core.Config;
+﻿using System.Reactive.Subjects;
+using HPBingoCounter.Core.Config;
 using HPBingoCounter.Core.Models;
 using HPBingoCounter.Core.Types;
 using Microsoft.ClearScript;
 using Microsoft.ClearScript.JavaScript;
 using Microsoft.ClearScript.V8;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HPBingoCounter.Core
 {

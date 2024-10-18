@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HPBingoCounter.Commands;
+﻿using HPBingoCounter.Commands;
 using HPBingoCounter.Core.Models;
 using HPBingoCounter.ViewModels.Types;
 

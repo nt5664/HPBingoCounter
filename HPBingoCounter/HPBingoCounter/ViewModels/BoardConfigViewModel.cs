@@ -1,7 +1,7 @@
-﻿using HPBingoCounter.Commands;
+﻿using System.Collections.ObjectModel;
+using HPBingoCounter.Commands;
 using HPBingoCounter.Core;
 using HPBingoCounter.Core.Types;
-using System.Collections.ObjectModel;
 
 namespace HPBingoCounter.ViewModels
 {

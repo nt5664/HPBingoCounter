@@ -1,11 +1,6 @@
-﻿using HPBingoCounter.Commands;
+﻿using System.Collections.ObjectModel;
+using HPBingoCounter.Commands;
 using HPBingoCounter.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HPBingoCounter.ViewModels
 {
