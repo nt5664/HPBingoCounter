@@ -5,20 +5,20 @@ using System.Collections.ObjectModel;
 
 namespace HPBingoCounter.ViewModels
 {
-    internal class NewBoardDetailsViewModel : ViewModelBase
+    internal class BoardConfigViewModel : ViewModelBase
     {
         private const string DEFAULT_SEED = "000000";
         private const HPBingoCardTypes DEFAULT_CARD_TYPE = HPBingoCardTypes.Normal;
 
         private readonly HPBingoService _bingoService;
 
-        public NewBoardDetailsViewModel(HPBingoService bingoService, DelegateCommand newBoardCommand, DelegateCommand cancelCommand)
+        public BoardConfigViewModel(HPBingoService bingoService, DelegateCommand newBoardCommand, DelegateCommand cancelCommand)
         {
-            _bingoService = bingoService;
-            CancelCommand = cancelCommand;
-            RequestNewBoardCommand = newBoardCommand;
+            _bingoService = bingoService ?? throw new ArgumentNullException(nameof(bingoService));
+            CancelCommand = cancelCommand ?? throw new ArgumentNullException(nameof(cancelCommand));
+            RequestNewBoardCommand = newBoardCommand ?? throw new ArgumentNullException(nameof(newBoardCommand));
             AvailableVersions = new ObservableCollection<string>();
-
+            
             RefreshAvailableVersions();
         }
 
@@ -30,7 +30,11 @@ namespace HPBingoCounter.ViewModels
         public string? Seed
         {
             get => _seed;
-            set => SetValue(ref _seed, value);
+            set
+            {
+                if (SetValue(ref _seed, value))
+                    RequestNewBoardCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public Array CardTypes => Enum.GetValues(typeof(HPBingoCardTypes));
@@ -48,7 +52,11 @@ namespace HPBingoCounter.ViewModels
         public string? SelectedVersion
         {
             get => _selectedVersion;
-            set => SetValue(ref _selectedVersion, value);
+            set 
+            {
+                if (SetValue(ref _selectedVersion, value))
+                    RequestNewBoardCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public void RefreshAvailableVersions()

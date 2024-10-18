@@ -17,7 +17,7 @@ namespace HPBingoCounter.Commands
         public DelegateCommand(Action<object?> executeAction, Predicate<object?>? canExecuteAction = null)
         {
             _executeAction = executeAction ?? throw new ArgumentNullException(nameof(executeAction));
-            _canExecuteAction = canExecuteAction ?? (_ => true);
+            _canExecuteAction = canExecuteAction ?? DefaultCanExecute;
         }
 
         public void RaiseCanExecuteChanged()
@@ -33,6 +33,11 @@ namespace HPBingoCounter.Commands
         public void Execute(object? parameter)
         {
             _executeAction(parameter);
+        }
+
+        private static bool DefaultCanExecute(object? parameter)
+        {
+            return true;
         }
     }
 }

@@ -39,7 +39,7 @@
                 BorderThickness="2"
                 BorderBrush="LightGray"
                 CornerRadius="5"
-                DataContext="{Binding NewBoardViewModel, Mode=OneWay}">
+                DataContext="{Binding NewBoardConfigViewModel, Mode=OneWay}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
