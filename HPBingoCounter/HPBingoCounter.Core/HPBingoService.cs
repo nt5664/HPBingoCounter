@@ -99,9 +99,9 @@ namespace HPBingoCounter.Core
                     rawGoals = engine.Script.getCards(version, cardType.ToString().ToLower(), seed);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new InvalidProgramException("The JS generator is corrupted, check the config", e);
+                throw new InvalidProgramException("The JS generator is corrupted, check the config", ex);
             }
 
             if (string.IsNullOrEmpty(rawGoals))

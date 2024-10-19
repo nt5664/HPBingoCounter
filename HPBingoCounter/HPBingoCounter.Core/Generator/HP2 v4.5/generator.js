@@ -197,7 +197,8 @@ bingoGenerator = function(bingoListR, opts) {
         var bingoBoard = [];
         for (var i = 1; i <= 25; i++) {
             bingoBoard[i] = {
-                difficulty: difficulty(i)
+                difficulty: difficulty(i),
+                amount: 1
             };
         }
         var used = [];
@@ -239,8 +240,21 @@ bingoGenerator = function(bingoListR, opts) {
             } while ((synergy != 0) && (j < possibleList.length));
             used.push(minSynObj.value);
             bingoBoard[i].types = minSynObj.value.types;
-            bingoBoard[i].amount = 1;
+
             var name = minSynObj.value[LANG] || minSynObj.value.name;
+
+            if (name.toUpperCase().includes("BOTH")) {
+                bingoBoard[i].amount = 2;
+            }
+
+            var amountMatched = name.match(/[0-9]+/g);
+            if (amountMatched !== null) {
+                var amount = parseInt(amountMatched[0]);
+                if (amount < 100) {
+                    bingoBoard[i].amount = amount;
+                }
+            }
+            
             name = name.replaceAll(/\{(\d+)-(\d+)\}/g, (match, p1, p2, offset, string) => {
                 var low = parseInt(p1);
                 var high = parseInt(p2);

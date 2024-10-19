@@ -223,6 +223,18 @@ bingoGenerator = function(bingoListR, opts) {
             bingoBoard[i].types = minSynObj.value.types;
             bingoBoard[i].name = minSynObj.value[LANG] || minSynObj.value.name;
             bingoBoard[i].synergy = minSynObj.synergy;
+
+            if (bingoBoard[i].name.toUpperCase().includes("BOTH")) {
+                bingoBoard[i].amount = 2;
+            }
+
+            var amountMatched = bingoBoard[i].name.match(/[0-9]+/g);
+            if (amountMatched !== null) {
+                var amount = parseInt(amountMatched[0]);
+                if (amount < 100) {
+                    bingoBoard[i].amount = amount;
+                }
+            }
         }
         return bingoBoard;
     }
