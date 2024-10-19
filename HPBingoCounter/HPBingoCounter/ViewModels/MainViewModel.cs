@@ -68,7 +68,7 @@ namespace HPBingoCounter.ViewModels
 
         public BingoBoardViewModel BoardViewModel { get; }
 
-        private void HandleNewBoard(IEnumerable<HPBingoGoal>? newGoals)
+        private void HandleNewBoard(HPBingoBoardDto newGoals)
         {
             if (newGoals is null)
                 return;
@@ -80,6 +80,7 @@ namespace HPBingoCounter.ViewModels
         public override void Dispose()
         {
             NewBoardConfigViewModel.Dispose();
+            BoardViewModel.Dispose();
             _newBoardSubscription.Dispose();
             _service.Dispose();
 

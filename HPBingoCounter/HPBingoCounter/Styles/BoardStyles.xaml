@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style
+        x:Key="BoardBackgroundStyle"
+        TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="SlateGray" />
+        <Setter Property="Background" Value="SteelBlue" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style
+        x:Key="BoardInfoBackgroundStyle"
+        TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="Background" Value="DarkSlateGray" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
+
+    <Style
+        x:Key="BoardInfoTextStyle"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style 
+        x:Key="BoardInfoHeaderStyle"
+        TargetType="{x:Type TextBlock}"
+        BasedOn="{StaticResource BoardInfoTextStyle}">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style 
+        x:Key="BoardInfoValueStyle"
+        TargetType="{x:Type TextBlock}"
+        BasedOn="{StaticResource BoardInfoTextStyle}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+</ResourceDictionary>

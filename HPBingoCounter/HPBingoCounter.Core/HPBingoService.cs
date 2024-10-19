@@ -13,11 +13,11 @@ namespace HPBingoCounter.Core
     {
         public HPBingoService()
         {
-            _newBoardSubject = new Subject<IEnumerable<HPBingoGoal>?>();
+            _newBoardSubject = new Subject<HPBingoBoardDto>();
         }
 
-        private readonly Subject<IEnumerable<HPBingoGoal>?> _newBoardSubject;
-        public IObservable<IEnumerable<HPBingoGoal>?> NewBoardObservable => _newBoardSubject;
+        private readonly Subject<HPBingoBoardDto> _newBoardSubject;
+        public IObservable<HPBingoBoardDto> NewBoardObservable => _newBoardSubject;
 
         private IBingoVersions? _versions;
         public IBingoVersions? Versions
@@ -108,7 +108,8 @@ namespace HPBingoCounter.Core
                 throw new Exception("Board generation failed, couldn't obtain the cards");
 
             IEnumerable<HPBingoGoal>? goals = JsonConvert.DeserializeObject<IEnumerable<HPBingoGoal>>(rawGoals);
-            _newBoardSubject.OnNext(goals);
+            HPBingoBoardDto board = new HPBingoBoardDto(version, seed, cardType, goals);
+            _newBoardSubject.OnNext(board);
         }
     }
 }
