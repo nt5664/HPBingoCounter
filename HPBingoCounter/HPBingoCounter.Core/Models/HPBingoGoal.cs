@@ -2,20 +2,19 @@
 
 namespace HPBingoCounter.Core.Models
 {
-    public class HPBingoGoal : IGoal
+    public class HPBingoGoal
     {
         [JsonConstructor]
-        public HPBingoGoal(string name)
+        public HPBingoGoal(string name, int amount)
         {
             Name = name;
-            RequiredAmount = 0;
+            RequiredAmount = amount;
         }
 
+        [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonIgnore]
-        public bool CollectMultiple => RequiredAmount > 0;
-
+        [JsonProperty("amount")]
         public int RequiredAmount { get; }
     }
 }

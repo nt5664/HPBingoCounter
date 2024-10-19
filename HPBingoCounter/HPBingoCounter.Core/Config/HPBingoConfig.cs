@@ -7,11 +7,8 @@ namespace HPBingoCounter.Core.Config
         [JsonProperty("versions")]
         public string? VersionUrl { get; set; }
 
-        [JsonProperty("generatorApi")]
-        public string? GeneratorFuncUrl { get; set; }
-
-        [JsonProperty("generatorUrl")]
-        public string? GeneratorUrl { get; set; }
+        [JsonProperty("generatorFile")]
+        public string? GeneratorFile { get; set; }
 
         [JsonProperty("goalsUrl")]
         public string? GoalsUrl { get; set; }

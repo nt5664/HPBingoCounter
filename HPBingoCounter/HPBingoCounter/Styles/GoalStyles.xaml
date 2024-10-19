@@ -67,6 +67,8 @@
         <Setter Property="Content">
             <Setter.Value>
                 <Canvas 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Width="24" 
                     Height="24">
                     <Path 
@@ -83,7 +85,9 @@
         BasedOn="{StaticResource RedButtonStyle}">
         <Setter Property="Content">
             <Setter.Value>
-                <Canvas 
+                <Canvas
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Width="24" 
                     Height="24">
                     <Path 

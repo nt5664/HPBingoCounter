@@ -4,6 +4,8 @@ namespace HPBingoCounter.Core.Config
 {
     public static class HPBingoConfigManager
     {
+        private const string CONFIG_FILE = @"Config\appconfig.json";
+        private const string API_FILE = @"Generator\api.js";
         private const string URL_WILDCARD = "???";
 
         static HPBingoConfigManager()
@@ -13,23 +15,25 @@ namespace HPBingoCounter.Core.Config
 
         public static IConfig? Current { get; private set; }
 
+        public static string ApiPath => $@"{Directory.GetCurrentDirectory()}\{API_FILE}";
+
         public static IConfig? ReloadConfig()
         {
-            string configString = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\{HPBingoConstants.CONFIG_FILE}");
+            string configString = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\{CONFIG_FILE}");
             Current = JsonConvert.DeserializeObject<HPBingoConfig>(configString)
                 ?? throw new ApplicationException("Cannot load config data");
 
             return Current;
         }
 
-        public static string GetGeneratorUrlForVersion(string version)
+        public static string GetGeneratorForVersion(string version)
         {
-            if (Current is null || string.IsNullOrEmpty(Current.GeneratorUrl))
+            if (Current is null || string.IsNullOrEmpty(Current.GeneratorFile))
                 throw new InvalidOperationException("Invalid config, reload and try again");
 
             ArgumentNullException.ThrowIfNull(version);
 
-            return Current.GeneratorUrl.Replace(URL_WILDCARD, version);
+            return $@"{Directory.GetCurrentDirectory()}\{Current.GeneratorFile.Replace(URL_WILDCARD, version)}";
         }
 
         public static string GetGoalsUrlForVersion(string version)

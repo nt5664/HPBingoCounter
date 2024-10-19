@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border
-        Background="Gray">
+        Background="#33000000">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

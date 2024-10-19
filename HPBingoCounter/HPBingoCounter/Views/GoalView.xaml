@@ -51,8 +51,15 @@
                     Grid.Column="1"
                     TextAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="14"
-                    Text="55/55" />
+                    FontSize="14">
+                    <TextBlock.Inlines>
+                        <Run
+                            Text="{Binding Count, Mode=OneWay, TargetNullValue='0', FallbackValue='-'}"
+                            FontWeight="Bold" />
+                        <Run Text="/" />
+                        <Run Text="{Binding RequiredAmount, Mode=OneWay, TargetNullValue='0', FallbackValue='-'}" />
+                    </TextBlock.Inlines>
+                </TextBlock>
             </Grid>
         </Grid>
     </Border>

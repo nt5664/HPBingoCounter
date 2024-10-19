@@ -3,8 +3,7 @@
     public interface IConfig
     {
         string? VersionUrl { get; }
-        string? GeneratorFuncUrl { get; }
-        string? GeneratorUrl { get; }
+        string? GeneratorFile { get; }
         string? GoalsUrl { get; }
     }
 }

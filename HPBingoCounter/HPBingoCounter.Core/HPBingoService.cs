@@ -57,34 +57,51 @@ namespace HPBingoCounter.Core
             if (HPBingoConfigManager.Current is null)
                 throw new InvalidOperationException("Invalid config; cannot resolve data. Reload the config and try again");
 
+            string generatorFile = HPBingoConfigManager.GetGeneratorForVersion(version);
+            if (!File.Exists(generatorFile))
+                throw new InvalidOperationException($"Unsopported version; cannot find generator for {version}. Update the generator or reload the config");
+
             string api;
             string goalList;
             string generator;
 
-            using (var hc = new HttpClient())
+            try
             {
-                api = await hc.GetStringAsync(HPBingoConfigManager.Current.GeneratorFuncUrl);
-                goalList = await hc.GetStringAsync(HPBingoConfigManager.GetGoalsUrlForVersion(version));
-                generator = await hc.GetStringAsync(HPBingoConfigManager.GetGeneratorUrlForVersion(version));
+                using (var hc = new HttpClient())
+                {
+                    goalList = await hc.GetStringAsync(HPBingoConfigManager.GetGoalsUrlForVersion(version));
+                }
+
+                api = File.ReadAllText(HPBingoConfigManager.ApiPath);
+                generator = File.ReadAllText(generatorFile);
+            }
+            catch (Exception e)
+            {
+                throw new FileNotFoundException("The generator files cannot be opened or don't exist. Check the config", e);
             }
 
             if (string.IsNullOrEmpty(api) || string.IsNullOrEmpty(goalList) || string.IsNullOrEmpty(generator))
                 throw new InvalidProgramException("The JS functions are invalid. Check the URLs in the config");
 
-            //generator = generator.Replace("return bingoBoard;", "return JSON.stringify(bingoBoard.map(x => { return { name: x.name, diff: x.difficulty } }));");
-            api = api.Replace(".map(x => { id = x.id, name = x.name })", ".map(x => { return { name: x.name }})"); // TODO: add this change to goals.js
             var docInfo = new DocumentInfo
             {
                 Category = ModuleCategory.CommonJS
             };
 
             string? rawGoals;
-            using (var engine = new V8ScriptEngine())
+            try
             {
-                engine.Execute(goalList);
-                engine.Execute(docInfo, generator);
-                engine.Execute(api);
-                rawGoals = engine.Script.getCards(version, cardType.ToString().ToLower(), seed);
+                using (var engine = new V8ScriptEngine())
+                {
+                    engine.Execute(goalList);
+                    engine.Execute(docInfo, generator);
+                    engine.Execute(api);
+                    rawGoals = engine.Script.getCards(version, cardType.ToString().ToLower(), seed);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new InvalidProgramException("The JS generator is corrupted, check the config", e);
             }
 
             if (string.IsNullOrEmpty(rawGoals))

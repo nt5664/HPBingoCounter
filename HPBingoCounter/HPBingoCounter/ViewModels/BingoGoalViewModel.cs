@@ -10,7 +10,7 @@ namespace HPBingoCounter.ViewModels
 
         public BingoGoalViewModel()
         {
-            IncrementCommand = new DelegateCommand(_ => ++Count, _ => _goal is not null && !GoalState.Equals(GoalStates.Completed));
+            IncrementCommand = new DelegateCommand(_ => ++Count, _ => _goal is not null && !IsCompleted);
             ReductCommand = new DelegateCommand(_ => --Count, _ => _goal is not null && Count > 0);
         }
 
@@ -18,11 +18,11 @@ namespace HPBingoCounter.ViewModels
 
         public DelegateCommand ReductCommand { get; }
 
-        public string Name => _goal?.Name ?? "UNKNOWN";
-
-        public bool CollectMultiple => _goal?.CollectMultiple ?? false;
+        public string Name => _goal?.Name ?? "NULL";
 
         public int RequiredAmount => _goal?.RequiredAmount ?? -1;
+
+        public bool IsCompleted => GoalState.Equals(GoalStates.Completed);
 
         private int _count;
         public int Count
@@ -30,8 +30,12 @@ namespace HPBingoCounter.ViewModels
             get => _count;
             set 
             {
+                GoalStates prevState = GoalState;
                 if (!SetValue(ref _count, value, nameof(Count), nameof(GoalState)))
                     return;
+
+                if (GoalState != prevState && (GoalState.Equals(GoalStates.Completed) || prevState.Equals(GoalStates.Completed)))
+                    RaisePropertyChanged(nameof(IsCompleted));
 
                 IncrementCommand.RaiseCanExecuteChanged();
                 ReductCommand.RaiseCanExecuteChanged();
@@ -48,7 +52,7 @@ namespace HPBingoCounter.ViewModels
                 if (Count == 0)
                     return GoalStates.Default;
 
-                if (!CollectMultiple || Count == RequiredAmount)
+                if (Count == RequiredAmount)
                     return GoalStates.Completed;
 
                 return GoalStates.Active;
@@ -59,7 +63,7 @@ namespace HPBingoCounter.ViewModels
         {
             _goal = goal;
             Count = 0;
-            RaisePropertyChanged(nameof(Name), nameof(CollectMultiple), nameof(RequiredAmount));
+            RaisePropertyChanged(nameof(Name), nameof(RequiredAmount));
             IncrementCommand.RaiseCanExecuteChanged();
             ReductCommand.RaiseCanExecuteChanged();
         }

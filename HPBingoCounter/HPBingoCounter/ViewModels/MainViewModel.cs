@@ -1,6 +1,9 @@
 ﻿using HPBingoCounter.Commands;
 using HPBingoCounter.Core;
+using HPBingoCounter.Core.Config;
 using HPBingoCounter.Core.Models;
+using System.Text;
+using System.Windows;
 
 namespace HPBingoCounter.ViewModels
 {
@@ -19,21 +22,33 @@ namespace HPBingoCounter.ViewModels
                 {
                     ShowLoadingScreen = true;
                     SelectNewBoard = false;
-                    _service.RequestNewBoard(NewBoardConfigViewModel.SelectedVersion, NewBoardConfigViewModel.SelectedCardType, NewBoardConfigViewModel.Seed);
+                    SafeInvoke(
+                        () => _service.RequestNewBoard(NewBoardConfigViewModel.SelectedVersion, NewBoardConfigViewModel.SelectedCardType, NewBoardConfigViewModel.Seed),
+                        () => ShowLoadingScreen = false
+                    );
                 }, _ => !string.IsNullOrWhiteSpace(NewBoardConfigViewModel.SelectedVersion) && !string.IsNullOrWhiteSpace(NewBoardConfigViewModel.Seed)),
                 new DelegateCommand(_ => SelectNewBoard = false));
 
             BoardViewModel = new BingoBoardViewModel();
 
             SelectNewBoard = false;
-            ShowNewBoardDetailsCommand = new DelegateCommand(_ => 
+            ShowNewBoardConfigCommand = new DelegateCommand(_ => 
             { 
                 NewBoardConfigViewModel.ResetState();
                 SelectNewBoard = true;
             });
+
+            ReloadConfigCommand = new DelegateCommand(_ => 
+            {
+                ShowLoadingScreen = true;
+                SafeInvoke(() => HPBingoConfigManager.ReloadConfig());
+                ShowLoadingScreen = false;
+            });
         }
 
-        public DelegateCommand ShowNewBoardDetailsCommand { get; }
+        public DelegateCommand ShowNewBoardConfigCommand { get; }
+
+        public DelegateCommand ReloadConfigCommand { get; }
 
         private bool _selectNewBoard;
         public bool SelectNewBoard

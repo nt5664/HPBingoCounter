@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Windows;
 
 namespace HPBingoCounter.ViewModels
 {
@@ -37,5 +39,23 @@ namespace HPBingoCounter.ViewModels
 
         public virtual void Dispose()
         { }
+
+        protected static void SafeInvoke(Action action, Action? cleanupAction = null)
+        {
+            try
+            {
+                action?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                StringBuilder sb = new StringBuilder($"Error!{Environment.NewLine}");
+                sb.AppendLine(ex.Message);
+                sb.Append("Inner exception: ");
+                sb.AppendLine(ex.InnerException?.Message);
+
+                MessageBox.Show(sb.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                cleanupAction?.Invoke();
+            }
+        }
     }
 }

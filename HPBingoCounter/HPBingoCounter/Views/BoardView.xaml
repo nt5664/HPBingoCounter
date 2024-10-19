@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:HPBingoCounter.ViewModels"
              xmlns:views="clr-namespace:HPBingoCounter.Views"
+             xmlns:c="clr-namespace:HPBingoCounter.Coverters"
              mc:Ignorable="d"
              d:DesignHeight="700" d:DesignWidth="1000"
              d:DataContext="{d:DesignInstance vm:BingoBoardViewModel, IsDesignTimeCreatable=False}">
@@ -12,27 +13,30 @@
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Auto">
         <Grid
-            DataContext="{Binding BoardViewModel, Mode=OneTime}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="5*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            DataContext="{Binding BoardViewModel, Mode=OneTime}"
+            Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="5*" />
-                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <StackPanel 
+                Grid.Row="0"
+                Orientation="Horizontal">
+                
+            </StackPanel>
+            
             <ItemsControl
-                Grid.Column="1"
                 Grid.Row="1"
-                ItemsSource="{Binding Goals, Mode=OneWay}">
+                ItemsSource="{Binding Goals, Mode=OneWay}"
+                Visibility="{Binding IsBoardEmpty, Mode=OneWay, Converter={c:ShowWhenFalse}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid
                             Rows="5"
-                            Columns="5" />
+                            Columns="5"
+                            MaxHeight="650"
+                            MaxWidth="650" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -43,6 +47,14 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <TextBlock
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                TextAlignment="Center"
+                Text="Click on 'New Board' to generate a board"
+                Visibility="{Binding IsBoardEmpty, Mode=OneWay, Converter={c:ShowWhenTrue}}" />
         </Grid>
     </ScrollViewer>
 </UserControl>

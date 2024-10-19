@@ -8,8 +8,8 @@
         xmlns:c="clr-namespace:HPBingoCounter.Coverters"
         mc:Ignorable="d"
         Title="HP Bingo Counter"
-        Height="450"
-        Width="800"
+        Height="650"
+        Width="700"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <vm:MainViewModel x:Key="VM" />
@@ -23,16 +23,16 @@
         <Menu
             Grid.Row="0">
             <MenuItem
-                Header="_New"
+                Header="_New Board"
                 IsEnabled="{Binding SelectNewBoard, Mode=OneWay, Converter={c:InvertBoolConverter}}"
-                Command="{Binding ShowNewBoardDetailsCommand, Mode=OneTime}">
-                
-            </MenuItem>
+                Command="{Binding ShowNewBoardConfigCommand, Mode=OneTime}" />
+            <MenuItem
+                Header="_Reload Config"
+                Command="{Binding ReloadConfigCommand, Mode=OneTime}" />
         </Menu>
 
         <views:BoardView
-            Grid.Row="1"
-            Visibility="{Binding SelectNewBoard, Mode=OneWay, Converter={c:ShowWhenFalse}}" />
+            Grid.Row="1" />
         
         <views:NewBoardView
             Grid.Row="1"

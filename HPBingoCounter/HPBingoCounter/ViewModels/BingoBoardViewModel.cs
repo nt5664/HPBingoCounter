@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using HPBingoCounter.Commands;
 using HPBingoCounter.Core.Models;
 
@@ -33,6 +34,22 @@ namespace HPBingoCounter.ViewModels
 
         public DelegateCommand ResetBoardCommand { get; }
 
+        public bool IsBoardEmpty => Goals.Count == 0;
+
+        private int _requiredGoals;
+        public int RequiredGoals
+        {
+            get => _requiredGoals;
+            set => SetValue(ref _requiredGoals, value);
+        }
+
+        private int _completedGoals;
+        public int CompletedGoals
+        {
+            get => _completedGoals;
+            set => SetValue(ref _completedGoals, value);
+        }
+
         public void LoadBoard(IEnumerable<HPBingoGoal> goals)
         {
             _savedState.Clear();
@@ -43,7 +60,11 @@ namespace HPBingoCounter.ViewModels
                     continue;
 
                 if (++idx >= Goals.Count)
-                    Goals.Add(new BingoGoalViewModel());
+                {
+                    var newVm = new BingoGoalViewModel();
+                    newVm.PropertyChanged += OnGoalPropertyChanged;
+                    Goals.Add(newVm); 
+                }
 
                 BingoGoalViewModel goalVm = Goals[idx];
                 goalVm.SetGoal(goal);
@@ -55,6 +76,21 @@ namespace HPBingoCounter.ViewModels
             {
                 Goals.RemoveAt(idx);
             }
+
+            RaisePropertyChanged(nameof(IsBoardEmpty));
+        }
+
+        public override void Dispose()
+        {
+            _savedState.Clear();
+            foreach (var goal in Goals)
+            {
+                goal.PropertyChanged -= OnGoalPropertyChanged;
+                goal.Dispose();
+            }
+
+            Goals.Clear();
+            base.Dispose();
         }
 
         private bool CanExecuteCommand(object? _)
@@ -78,6 +114,15 @@ namespace HPBingoCounter.ViewModels
             {
                 _savedState[key] = 0;
             }
+        }
+
+        private void OnGoalPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (sender is not BingoGoalViewModel vm || string.IsNullOrEmpty(e.PropertyName))
+                return;
+
+            if (e.PropertyName.Equals(nameof(BingoGoalViewModel.IsCompleted)))
+                CompletedGoals += vm.IsCompleted ? 1 : -1;
         }
     }
 }
