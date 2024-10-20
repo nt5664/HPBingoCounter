@@ -7,10 +7,11 @@
         xmlns:vm="clr-namespace:HPBingoCounter.ViewModels"
         xmlns:c="clr-namespace:HPBingoCounter.Coverters"
         mc:Ignorable="d"
-        Title="HP Bingo Counter [v0.1]"
+        Title="HP Bingo Counter [v0.2]"
         Height="810"
         Width="678"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <vm:MainViewModel x:Key="VM" />
@@ -65,9 +66,13 @@
                 Command="{Binding BugReportCommand, Mode=OneTime}" />
         </Menu>
 
-        <views:BoardView
-            Grid.Row="1" />
-        
+        <Viewbox
+            Grid.Row="1"
+            StretchDirection="Both"
+            Stretch="UniformToFill">
+            <views:BoardView />
+        </Viewbox>
+
         <views:NewBoardView
             Grid.Row="1"
             Visibility="{Binding SelectNewBoard, Mode=OneWay, Converter={c:ShowWhenTrue}}" />

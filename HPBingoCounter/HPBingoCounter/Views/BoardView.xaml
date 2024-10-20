@@ -17,204 +17,200 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer
-        VerticalScrollBarVisibility="Auto"
-        HorizontalScrollBarVisibility="Auto">
-        <Grid
-            DataContext="{Binding BoardViewModel, Mode=OneTime}"
-            Margin="10">
+    <Grid
+        DataContext="{Binding BoardViewModel, Mode=OneTime}"
+        Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="640" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="640" />
+        </Grid.RowDefinitions>
+
+        <Grid 
+            Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="640" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="90" />
-                <RowDefinition Height="640" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid 
-                Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <Border 
+                Grid.Column="0"
+                Grid.Row="0"
+                Style="{StaticResource BoardInfoBackgroundStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <Border 
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Style="{StaticResource BoardInfoBackgroundStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource BoardInfoHeaderStyle}"
-                            Text="Version" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource BoardInfoValueStyle}"
-                            Text="{Binding BoardVersion, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                    </Grid>
-                </Border>
-                <Border 
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Style="{StaticResource BoardInfoBackgroundStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource BoardInfoHeaderStyle}"
-                            Text="Seed" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource BoardInfoValueStyle}"
-                            Text="{Binding Seed, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                    </Grid>
-                </Border>
-                <Border 
-                    Grid.Column="2"
-                    Grid.Row="0"
-                    Style="{StaticResource BoardInfoBackgroundStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource BoardInfoHeaderStyle}"
-                            Text="Card Type" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource BoardInfoValueStyle}"
-                            Text="{Binding CardType, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                    </Grid>
-                </Border>
-                <Border 
-                    Grid.Column="3"
-                    Grid.Row="0"
-                    Style="{StaticResource BoardProgressBackgoundStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource BoardInfoHeaderStyle}"
-                            Text="Progress" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource BoardInfoValueStyle}">
-                            <TextBlock.Inlines>
-                                <Run Text="{Binding CompletedGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                                <Run Text=" / " />
-                                <Run Text="{Binding RequiredGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                            </TextBlock.Inlines>
-                        </TextBlock>
-                    </Grid>
-                </Border>
-
-                <Button
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Style="{StaticResource GreenButtonStyle}"
-                    Command="{Binding SaveStateCommand}">
                     <TextBlock
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        TextAlignment="Center"
-                        FontWeight="Bold"
-                        Text="Save State" />
-                </Button>
-
-                <Button
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    Style="{StaticResource YellowButtonStyle}"
-                    Command="{Binding LoadSavedStateCommand}">
+                        Grid.Row="0"
+                        Style="{StaticResource BoardInfoHeaderStyle}"
+                        Text="Version" />
                     <TextBlock
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        TextAlignment="Center"
-                        FontWeight="Bold"
-                        Text="Load Saved State" />
-                </Button>
+                        Grid.Row="1"
+                        Style="{StaticResource BoardInfoValueStyle}"
+                        Text="{Binding BoardVersion, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                </Grid>
+            </Border>
+            <Border 
+                Grid.Column="1"
+                Grid.Row="0"
+                Style="{StaticResource BoardInfoBackgroundStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <Button
-                    Grid.Column="2"
-                    Grid.Row="1"
-                    Style="{StaticResource RedButtonStyle}"
-                    Command="{Binding ClearSavedStateCommand}">
                     <TextBlock
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        TextAlignment="Center"
-                        FontWeight="Bold"
-                        Text="Clear Saved State" />
-                </Button>
-
-                <Button
-                    Grid.Column="3"
-                    Grid.Row="1"
-                    Style="{StaticResource RedButtonStyle}"
-                    Command="{Binding ResetBoardCommand}">
+                        Grid.Row="0"
+                        Style="{StaticResource BoardInfoHeaderStyle}"
+                        Text="Seed" />
                     <TextBlock
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        TextAlignment="Center"
-                        FontWeight="Bold"
-                        Text="Reset Board" />
-                </Button>
-            </Grid>
+                        Grid.Row="1"
+                        Style="{StaticResource BoardInfoValueStyle}"
+                        Text="{Binding Seed, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                </Grid>
+            </Border>
+            <Border 
+                Grid.Column="2"
+                Grid.Row="0"
+                Style="{StaticResource BoardInfoBackgroundStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-            <Border
-                Grid.Row="1"
-                Style="{StaticResource BoardBackgroundStyle}">
-                <ItemsControl
-                    ItemsSource="{Binding Goals, Mode=OneWay}"
-                    Visibility="{Binding IsBoardEmpty, Mode=OneWay, Converter={c:ShowWhenFalse}}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid
-                                Rows="5"
-                                Columns="5"
-                                MaxHeight="650"
-                                MaxWidth="650" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate
-                            DataType="{x:Type vm:BingoGoalViewModel}">
-                            <views:GoalView
-                                DataContext="{Binding}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{StaticResource BoardInfoHeaderStyle}"
+                        Text="Card Type" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Style="{StaticResource BoardInfoValueStyle}"
+                        Text="{Binding CardType, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                </Grid>
+            </Border>
+            <Border 
+                Grid.Column="3"
+                Grid.Row="0"
+                Style="{StaticResource BoardProgressBackgoundStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{StaticResource BoardInfoHeaderStyle}"
+                        Text="Progress" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Style="{StaticResource BoardInfoValueStyle}">
+                        <TextBlock.Inlines>
+                            <Run Text="{Binding CompletedGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                            <Run Text=" / " />
+                            <Run Text="{Binding RequiredGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                </Grid>
             </Border>
 
-            <TextBlock
+            <Button
+                Grid.Column="0"
                 Grid.Row="1"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                TextAlignment="Center"
-                Text="Click on 'New Board' to generate a board"
-                Visibility="{Binding IsBoardEmpty, Mode=OneWay, Converter={c:ShowWhenTrue}}" />
+                Style="{StaticResource GreenButtonStyle}"
+                Command="{Binding SaveStateCommand}">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Save State" />
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                Grid.Row="1"
+                Style="{StaticResource YellowButtonStyle}"
+                Command="{Binding LoadSavedStateCommand}">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Load Saved State" />
+            </Button>
+
+            <Button
+                Grid.Column="2"
+                Grid.Row="1"
+                Style="{StaticResource RedButtonStyle}"
+                Command="{Binding ClearSavedStateCommand}">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Clear Saved State" />
+            </Button>
+
+            <Button
+                Grid.Column="3"
+                Grid.Row="1"
+                Style="{StaticResource RedButtonStyle}"
+                Command="{Binding ResetBoardCommand}">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Reset Board" />
+            </Button>
         </Grid>
-    </ScrollViewer>
+
+        <Border
+            Grid.Row="1"
+            Style="{StaticResource BoardBackgroundStyle}">
+            <ItemsControl
+                ItemsSource="{Binding Goals, Mode=OneWay}"
+                Visibility="{Binding IsBoardEmpty, Mode=OneWay, Converter={c:ShowWhenFalse}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid
+                            Rows="5"
+                            Columns="5"
+                            MaxHeight="650"
+                            MaxWidth="650" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate
+                        DataType="{x:Type vm:BingoGoalViewModel}">
+                        <views:GoalView
+                            DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+
+        <TextBlock
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            TextAlignment="Center"
+            Text="Click on 'New Board' to generate a board"
+            Visibility="{Binding IsBoardEmpty, Mode=OneWay, Converter={c:ShowWhenTrue}}" />
+    </Grid>
 </UserControl>
