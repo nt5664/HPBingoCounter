@@ -242,9 +242,46 @@ bingoGenerator = function(bingoListR, opts) {
             bingoBoard[i].types = minSynObj.value.types;
 
             var name = minSynObj.value[LANG] || minSynObj.value.name;
+            const nameLc = name.toLowerCase();
 
-            if (name.toUpperCase().includes("BOTH")) {
-                bingoBoard[i].amount = 2;
+            if (nameLc.includes("secrets")) {
+                switch (nameLc) {
+                    case "activate both secrets in willow from out of bounds":
+                        bingoBoard[i].amount = 2;
+                        break;
+                    case "all grand staircase secrets":
+                        bingoBoard[i].amount = 10;
+                        break;
+                    case "all chamber secrets":
+                        bingoBoard[i].amount = 6;
+                        break;
+                    case "all boomslang secrets":
+                        bingoBoard[i].amount = 3;
+                        break;
+                    case "all gryffindor challenge secrets":
+                        bingoBoard[i].amount = 9;
+                        break;
+                    case "all skurge secrets":
+                    case "all rictusempra secrets":
+                    case "all bicorn secrets":
+                        bingoBoard[i].amount = 7;
+                        break;
+                    case "all goyle secrets":
+                    case "all slytherin secrets":
+                        bingoBoard[i].amount = 8;
+                        break;
+                    case "all entry hall secrets":
+                        bingoBoard[i].amount = 12;
+                        break;
+                    case "all forest secrets":
+                        bingoBoard[i].amount = 4;
+                        break;
+                    case "all spongify secrets":
+                        bingoBoard[i].amount = 16;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             var amountMatched = name.match(/[0-9]+/g);
@@ -269,6 +306,16 @@ bingoGenerator = function(bingoListR, opts) {
             });
             bingoBoard[i].name = name;
             bingoBoard[i].synergy = minSynObj.synergy;
+
+            var multiplier = 1;
+            if (nameLc.includes("from each spell challenge")) {
+                multiplier = 4;
+            }
+            else if (nameLc.includes("each potion ingredients")) {
+                multiplier = 2;
+            }
+
+            bingoBoard[i].amount *= multiplier;
         }
         if (MODE == "lockout") {
             var usedLockout = [];
