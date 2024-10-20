@@ -21,11 +21,11 @@
         DataContext="{Binding BoardViewModel, Mode=OneTime}"
         Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="640" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
-            <RowDefinition Height="640" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid 
@@ -190,9 +190,7 @@
                     <ItemsPanelTemplate>
                         <UniformGrid
                             Rows="5"
-                            Columns="5"
-                            MaxHeight="650"
-                            MaxWidth="650" />
+                            Columns="5" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

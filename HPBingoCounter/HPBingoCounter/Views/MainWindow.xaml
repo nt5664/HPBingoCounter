@@ -8,6 +8,8 @@
         xmlns:c="clr-namespace:HPBingoCounter.Coverters"
         mc:Ignorable="d"
         Title="HP Bingo Counter [v0.2]"
+        MinWidth="635"
+        MinHeight="730"
         Height="810"
         Width="678"
         WindowStartupLocation="CenterScreen"
@@ -66,12 +68,8 @@
                 Command="{Binding BugReportCommand, Mode=OneTime}" />
         </Menu>
 
-        <Viewbox
-            Grid.Row="1"
-            StretchDirection="Both"
-            Stretch="UniformToFill">
-            <views:BoardView />
-        </Viewbox>
+        <views:BoardView 
+            Grid.Row="1" />
 
         <views:NewBoardView
             Grid.Row="1"
