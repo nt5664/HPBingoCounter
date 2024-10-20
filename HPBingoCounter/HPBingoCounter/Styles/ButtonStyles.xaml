@@ -22,6 +22,9 @@
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="Gainsboro" />
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="Gray" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -37,6 +40,9 @@
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="Crimson" />
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="DarkRed" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -51,6 +57,27 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="ForestGreen" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="DarkOliveGreen" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="YellowButtonBorder"
+        TargetType="{x:Type Border}"
+        BasedOn="{StaticResource ButtonBorderBase}">
+        <Setter Property="Background" Value="DarkGoldenrod" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Gold" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" Value="DarkGoldenrod" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="Sienna" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -98,6 +125,21 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Style="{StaticResource GreenButtonBorder}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="YellowButtonStyle"
+        TargetType="{x:Type Button}"
+        BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Style="{StaticResource YellowButtonBorder}">
                         <ContentPresenter />
                     </Border>
                 </ControlTemplate>

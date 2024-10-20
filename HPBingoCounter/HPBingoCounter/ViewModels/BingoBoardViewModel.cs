@@ -131,6 +131,10 @@ namespace HPBingoCounter.ViewModels
             CardType = board.CardType;
             CompletedGoals = 0;
             RaisePropertyChanged(nameof(IsBoardEmpty), nameof(IsBoardCompleted));
+            SaveStateCommand.RaiseCanExecuteChanged();
+            LoadSavedStateCommand.RaiseCanExecuteChanged();
+            ClearSavedStateCommand.RaiseCanExecuteChanged();
+            ResetBoardCommand.RaiseCanExecuteChanged();
         }
 
         public override void Dispose()

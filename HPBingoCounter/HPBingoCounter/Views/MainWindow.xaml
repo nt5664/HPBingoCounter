@@ -7,9 +7,10 @@
         xmlns:vm="clr-namespace:HPBingoCounter.ViewModels"
         xmlns:c="clr-namespace:HPBingoCounter.Coverters"
         mc:Ignorable="d"
-        Title="HP Bingo Counter"
-        Height="650"
-        Width="700"
+        Title="HP Bingo Counter [v0.1]"
+        Height="810"
+        Width="678"
+        WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <vm:MainViewModel x:Key="VM" />
@@ -27,8 +28,41 @@
                 IsEnabled="{Binding SelectNewBoard, Mode=OneWay, Converter={c:InvertBoolConverter}}"
                 Command="{Binding ShowNewBoardConfigCommand, Mode=OneTime}" />
             <MenuItem
+                Header="_Comparison Mode"
+                ItemsSource="{Binding ComparisonModes, Mode=OneTime}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="IsCheckable" Value="True" />
+                        <Setter Property="Header" Value="{Binding ., Mode=OneWay}" />
+                        <Setter Property="Command" Value="{Binding DataContext.SetComparisonModeCommand, Mode=OneTime, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding .}" />
+                        <Setter Property="IsChecked">
+                            <Setter.Value>
+                                <MultiBinding
+                                    Mode="OneWay"
+                                    Converter="{c:EqualityConverter}">
+                                    <Binding
+                                        Path="DataContext.BoardViewModel.ComparisonMode"
+                                        Mode="OneWay"
+                                        RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" />
+                                    <Binding
+                                        Path="."
+                                        Mode="OneWay" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+            <MenuItem
+                Header="_Bingo Website"
+                Command="{Binding OpenBingoWebsiteCommand, Mode=OneTime}" />
+            <MenuItem
                 Header="_Reload Config"
                 Command="{Binding ReloadConfigCommand, Mode=OneTime}" />
+            <MenuItem
+                Header="_Experiencing issues?"
+                Command="{Binding BugReportCommand, Mode=OneTime}" />
         </Menu>
 
         <views:BoardView

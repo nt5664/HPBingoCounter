@@ -2,6 +2,9 @@
 using HPBingoCounter.Core;
 using HPBingoCounter.Core.Config;
 using HPBingoCounter.Core.Models;
+using HPBingoCounter.ViewModels.Types;
+using HPBingoCounter.Views;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 
@@ -44,11 +47,30 @@ namespace HPBingoCounter.ViewModels
                 SafeInvoke(() => HPBingoConfigManager.ReloadConfig());
                 ShowLoadingScreen = false;
             });
+
+            SetComparisonModeCommand = new DelegateCommand(o =>
+            {
+                if (o is not BoardComparisonModes newMode)
+                    return;
+
+                BoardViewModel.ComparisonMode = newMode;
+            });
+
+            OpenBingoWebsiteCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo("https://hpbingo.github.io/") { UseShellExecute = true }));
+            BugReportCommand = new DelegateCommand(_ => new BugReportWindow().ShowDialog());
         }
+
+        public Array ComparisonModes => Enum.GetValues(typeof(BoardComparisonModes));
 
         public DelegateCommand ShowNewBoardConfigCommand { get; }
 
+        public DelegateCommand SetComparisonModeCommand { get; }
+
+        public DelegateCommand OpenBingoWebsiteCommand { get; }
+
         public DelegateCommand ReloadConfigCommand { get; }
+
+        public DelegateCommand BugReportCommand { get; }
 
         private bool _selectNewBoard;
         public bool SelectNewBoard
