@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:HPBingoCounter.ViewModels"
         xmlns:c="clr-namespace:HPBingoCounter.Coverters"
         mc:Ignorable="d"
-        Title="HP Bingo Counter [v0.2]"
+        Title="HP Bingo Counter [v0.3]"
         MinWidth="635"
         MinHeight="730"
         Height="810"
