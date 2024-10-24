@@ -7,12 +7,13 @@ namespace HPBingoCounter.ViewModels
 {
     internal class BoardConfigViewModel : ViewModelBase
     {
+        private const string FALLBACK_VERSION = "NONE";
         private const string DEFAULT_SEED = "000000";
         private const HPBingoCardTypes DEFAULT_CARD_TYPE = HPBingoCardTypes.Normal;
 
-        private readonly HPBingoService _bingoService;
+        private readonly IBingoService _bingoService;
 
-        public BoardConfigViewModel(HPBingoService bingoService, DelegateCommand newBoardCommand, DelegateCommand cancelCommand)
+        public BoardConfigViewModel(IBingoService bingoService, DelegateCommand newBoardCommand, DelegateCommand cancelCommand)
         {
             _bingoService = bingoService ?? throw new ArgumentNullException(nameof(bingoService));
             CancelCommand = cancelCommand ?? throw new ArgumentNullException(nameof(cancelCommand));
@@ -27,9 +28,9 @@ namespace HPBingoCounter.ViewModels
         public DelegateCommand RequestNewBoardCommand { get; }
 
         private string? _seed;
-        public string? Seed
+        public string Seed
         {
-            get => _seed;
+            get => _seed ?? DEFAULT_SEED;
             set
             {
                 if (SetValue(ref _seed, value))
@@ -49,9 +50,9 @@ namespace HPBingoCounter.ViewModels
         public ObservableCollection<string> AvailableVersions { get; }
 
         private string? _selectedVersion;
-        public string? SelectedVersion
+        public string SelectedVersion
         {
-            get => _selectedVersion;
+            get => _selectedVersion ?? FALLBACK_VERSION;
             set 
             {
                 if (SetValue(ref _selectedVersion, value))
@@ -75,12 +76,9 @@ namespace HPBingoCounter.ViewModels
 
         public void ResetState()
         {
-            if (_bingoService.Versions is null)
-                return;
-
             Seed = DEFAULT_SEED;
             SelectedCardType = DEFAULT_CARD_TYPE;
-            SelectedVersion = _bingoService.Versions.DefaultVersion;
+            SelectedVersion = _bingoService.Versions?.DefaultVersion ?? FALLBACK_VERSION;
         }
     }
 }

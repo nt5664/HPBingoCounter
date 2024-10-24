@@ -12,12 +12,12 @@ namespace HPBingoCounter.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
-        private readonly HPBingoService _service;
+        private readonly IBingoService _service;
         private readonly IDisposable _newBoardSubscription;
 
-        public MainViewModel()
+        public MainViewModel(IBingoService service)
         {
-            _service = new HPBingoService();
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _newBoardSubscription = _service.NewBoardObservable.Subscribe(HandleNewBoard);
             NewBoardConfigViewModel = new BoardConfigViewModel(
                 _service,
@@ -44,8 +44,13 @@ namespace HPBingoCounter.ViewModels
             ReloadConfigCommand = new DelegateCommand(_ => 
             {
                 ShowLoadingScreen = true;
-                SafeInvoke(() => HPBingoConfigManager.ReloadConfig());
+                SafeInvoke(() => 
+                {
+                    HPBingoConfigManager.ReloadConfig();
+                    NewBoardConfigViewModel.RefreshAvailableVersions();
+                });
                 ShowLoadingScreen = false;
+                RaisePropertyChanged(nameof(WindowTitle));
             });
 
             SetComparisonModeCommand = new DelegateCommand(o =>
@@ -71,6 +76,8 @@ namespace HPBingoCounter.ViewModels
         public DelegateCommand ReloadConfigCommand { get; }
 
         public DelegateCommand BugReportCommand { get; }
+
+        public string WindowTitle => $"HP Bingo Counter [v{App.AppVersion}] [Config: {HPBingoConfigManager.Current?.FilePath ?? "NO CONFIG LOADED"}]";
 
         private bool _selectNewBoard;
         public bool SelectNewBoard

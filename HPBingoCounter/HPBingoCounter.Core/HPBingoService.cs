@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace HPBingoCounter.Core
 {
-    public class HPBingoService : IDisposable
+    public class HPBingoService : IBingoService
     {
         public HPBingoService()
         {

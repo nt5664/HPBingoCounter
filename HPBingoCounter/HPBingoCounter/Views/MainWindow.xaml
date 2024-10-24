@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:HPBingoCounter.ViewModels"
         xmlns:c="clr-namespace:HPBingoCounter.Coverters"
         mc:Ignorable="d"
-        Title="HP Bingo Counter [v0.3]"
+        Title="{Binding WindowTitle, Mode=OneWay, TargetNullValue='HP Bingo Counter [App Corrupted]', FallbackValue='HP Bingo Counter [App Corrupted]'}"
         MinWidth="635"
         MinHeight="730"
         Height="810"
@@ -15,11 +15,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
-    <Window.Resources>
-        <vm:MainViewModel x:Key="VM" />
-    </Window.Resources>
-    <Grid
-        DataContext="{StaticResource VM}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />

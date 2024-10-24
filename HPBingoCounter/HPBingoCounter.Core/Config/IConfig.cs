@@ -5,5 +5,6 @@
         string? VersionUrl { get; }
         string? GeneratorFile { get; }
         string? GoalsUrl { get; }
+        string? FilePath { get; }
     }
 }

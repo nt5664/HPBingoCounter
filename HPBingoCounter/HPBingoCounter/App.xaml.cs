@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using HPBingoCounter.Core;
+using HPBingoCounter.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -14,6 +16,8 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
+        public static Version AppVersion => new(0, 4);
+
         private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -24,6 +28,19 @@ namespace HPBingoCounter
             sb.Append($"{Environment.NewLine}The application will close...");
 
             MessageBox.Show(sb.ToString(), "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            MainWindow window = new MainWindow
+            {
+                 DataContext = new MainViewModel(new HPBingoService())
+            };
+
+            MainWindow = window;
+            MainWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)

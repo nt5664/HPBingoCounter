@@ -12,5 +12,8 @@ namespace HPBingoCounter.Core.Config
 
         [JsonProperty("goalsUrl")]
         public string? GoalsUrl { get; set; }
+
+        [JsonIgnore]
+        public string? FilePath { get; set; }
     }
 }
