@@ -70,7 +70,6 @@ namespace HPBingoCounter.Core.Tests
                 Assert.That(config?.UseLocalVersions, Is.EqualTo(flagValues[0]));
                 Assert.That(config?.UseLocalGoals, Is.EqualTo(flagValues[1]));
                 Assert.That(config?.UseLocalGenerator, Is.EqualTo(flagValues[2]));
-                Assert.That(config?.SearchAllFilesLocally, shouldParse ? Is.EqualTo(flagValues.All(x => x == true)) : Is.Null);
             });
 
             void Deserialize()

@@ -30,11 +30,17 @@ namespace HPBingoCounter.Core
                         throw new InvalidOperationException("Invalid config; cannot resolve versions. Reload the config and try again");
 
                     string versions;
-                    using (var hc = new HttpClient())
+                    if (!HPBingoConfigManager.Current.UseLocalVersions)
                     {
+                        using var hc = new HttpClient();
+
                         var req = hc.GetStringAsync(HPBingoConfigManager.Current.VersionUrl);
                         req.Wait();
                         versions = req.Result;
+                    }
+                    else
+                    {
+                        versions = File.ReadAllText(HPBingoConfigManager.Current.VersionUrl);
                     }
 
                     if (string.IsNullOrEmpty(versions))
@@ -50,6 +56,7 @@ namespace HPBingoCounter.Core
         public void Dispose()
         {
             _newBoardSubject.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public async void RequestNewBoard(string version, HPBingoCardTypes cardType, string seed)
@@ -57,27 +64,29 @@ namespace HPBingoCounter.Core
             if (HPBingoConfigManager.Current is null)
                 throw new InvalidOperationException("Invalid config; cannot resolve data. Reload the config and try again");
 
-            string generatorFile = HPBingoConfigManager.GetGeneratorForVersion(version);
-            if (!File.Exists(generatorFile))
-                throw new InvalidOperationException($"Unsopported version; cannot find generator for {version}. Update the generator or reload the config");
-
             string api;
             string goalList;
             string generator;
 
             try
             {
-                using (var hc = new HttpClient())
-                {
-                    goalList = await hc.GetStringAsync(HPBingoConfigManager.GetGoalsUrlForVersion(version));
-                }
+                using var hc = new HttpClient();
+
+                string generatorPath = HPBingoConfigManager.GetGeneratorForVersion(version);
+                generator = HPBingoConfigManager.Current.UseLocalGenerator ? 
+                    File.ReadAllText(generatorPath) :
+                    await hc.GetStringAsync(generatorPath);
+
+                string goalsPath = HPBingoConfigManager.GetGoalsUrlForVersion(version);
+                goalList = HPBingoConfigManager.Current.UseLocalGoals ?
+                    File.ReadAllText(goalsPath) :
+                    await hc.GetStringAsync(goalsPath);
 
                 api = File.ReadAllText(HPBingoConfigManager.ApiPath);
-                generator = File.ReadAllText(generatorFile);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new FileNotFoundException("The generator files cannot be opened or don't exist. Check the config", e);
+                throw new FileNotFoundException("The generator files cannot be opened or don't exist. Check the config", ex);
             }
 
             if (string.IsNullOrEmpty(api) || string.IsNullOrEmpty(goalList) || string.IsNullOrEmpty(generator))
@@ -91,13 +100,12 @@ namespace HPBingoCounter.Core
             string? rawGoals;
             try
             {
-                using (var engine = new V8ScriptEngine())
-                {
-                    engine.Execute(goalList);
-                    engine.Execute(docInfo, generator);
-                    engine.Execute(api);
-                    rawGoals = engine.Script.getCards(version, cardType.ToString().ToLower(), seed);
-                }
+                using var engine = new V8ScriptEngine();
+
+                engine.Execute(goalList);
+                engine.Execute(docInfo, generator);
+                engine.Execute(api);
+                rawGoals = engine.Script.getCards(version, cardType.ToString().ToLower(), seed);
             }
             catch (Exception ex)
             {
@@ -105,7 +113,7 @@ namespace HPBingoCounter.Core
             }
 
             if (string.IsNullOrEmpty(rawGoals))
-                throw new Exception("Board generation failed, couldn't obtain the cards");
+                throw new Exception("Board generation failed, couldn't obtain the goals");
 
             IEnumerable<HPBingoGoal>? goals = JsonConvert.DeserializeObject<IEnumerable<HPBingoGoal>>(rawGoals);
             HPBingoBoardDto board = new HPBingoBoardDto(version, seed, cardType, goals);

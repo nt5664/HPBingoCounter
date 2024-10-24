@@ -8,7 +8,6 @@
         bool UseLocalVersions { get; }
         bool UseLocalGoals { get; }
         bool UseLocalGenerator { get; }
-        bool SearchAllFilesLocally { get; }
-        string? FilePath { get; }
+        string? FileName { get; }
     }
 }

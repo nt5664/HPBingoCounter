@@ -58,7 +58,32 @@
                 Command="{Binding OpenBingoWebsiteCommand, Mode=OneTime}" />
             <MenuItem
                 Header="_Reload Config"
-                Command="{Binding ReloadConfigCommand, Mode=OneTime}" />
+                Command="{Binding RefreshAvailableConfigCommand, Mode=OneTime}"
+                ItemsSource="{Binding AvailableConfigFiles, Mode=OneWay}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="IsCheckable" Value="True" />
+                        <Setter Property="Header" Value="{Binding ., Mode=OneWay}" />
+                        <Setter Property="Command" Value="{Binding DataContext.ReloadConfigCommand, Mode=OneTime, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding .}" />
+                        <Setter Property="IsChecked">
+                            <Setter.Value>
+                                <MultiBinding
+                                    Mode="OneWay"
+                                    Converter="{c:EqualityConverter}">
+                                    <Binding
+                                        Path="DataContext.ActiveConfigFile"
+                                        Mode="OneWay"
+                                        RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" />
+                                    <Binding
+                                        Path="."
+                                        Mode="OneWay" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
             <MenuItem
                 Header="_Experiencing issues?"
                 Command="{Binding BugReportCommand, Mode=OneTime}" />

@@ -23,9 +23,6 @@ namespace HPBingoCounter.Core.Config
         public bool UseLocalGenerator { get; set; }
 
         [JsonIgnore]
-        public bool SearchAllFilesLocally => UseLocalGenerator && UseLocalGoals && UseLocalVersions;
-
-        [JsonIgnore]
-        public string? FilePath { get; set; }
+        public string? FileName { get; set; }
     }
 }

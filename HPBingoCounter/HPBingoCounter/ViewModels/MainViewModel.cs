@@ -41,16 +41,24 @@ namespace HPBingoCounter.ViewModels
                 SelectNewBoard = true;
             });
 
-            ReloadConfigCommand = new DelegateCommand(_ => 
+            RefreshAvailableConfigCommand = new DelegateCommand(_ => 
             {
+                RaisePropertyChanged(nameof(AvailableConfigFiles));
+            });
+
+            ReloadConfigCommand = new DelegateCommand(o => 
+            {
+                string? configFile = o?.ToString();
+
                 ShowLoadingScreen = true;
                 SafeInvoke(() => 
                 {
-                    HPBingoConfigManager.ReloadConfig();
+                    HPBingoConfigManager.ReloadConfig(configFile);
                     NewBoardConfigViewModel.RefreshAvailableVersions();
+                    MessageBox.Show($"Config file ({configFile}) successfully loaded", "Status", MessageBoxButton.OK, MessageBoxImage.Information);
                 });
                 ShowLoadingScreen = false;
-                RaisePropertyChanged(nameof(WindowTitle));
+                RaisePropertyChanged(nameof(ActiveConfigFile), nameof(WindowTitle));
             });
 
             SetComparisonModeCommand = new DelegateCommand(o =>
@@ -67,17 +75,23 @@ namespace HPBingoCounter.ViewModels
 
         public Array ComparisonModes => Enum.GetValues(typeof(BoardComparisonModes));
 
+        public IEnumerable<string> AvailableConfigFiles => HPBingoConfigManager.AvailableConfigFiles;
+
+        public string? ActiveConfigFile => HPBingoConfigManager.Current?.FileName;
+
         public DelegateCommand ShowNewBoardConfigCommand { get; }
 
         public DelegateCommand SetComparisonModeCommand { get; }
 
         public DelegateCommand OpenBingoWebsiteCommand { get; }
 
+        public DelegateCommand RefreshAvailableConfigCommand { get; }
+
         public DelegateCommand ReloadConfigCommand { get; }
 
         public DelegateCommand BugReportCommand { get; }
 
-        public string WindowTitle => $"HP Bingo Counter [v{App.AppVersion}] [Config: {HPBingoConfigManager.Current?.FilePath ?? "NO CONFIG LOADED"}]";
+        public string WindowTitle => $"HP Bingo Counter [v{App.AppVersion}] [Config: {ActiveConfigFile ?? "NO CONFIG LOADED"}]";
 
         private bool _selectNewBoard;
         public bool SelectNewBoard
