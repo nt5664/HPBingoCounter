@@ -16,5 +16,15 @@ namespace HPBingoCounter.Core.Models
 
         [JsonProperty("amount")]
         public int RequiredAmount { get; }
+
+        public override bool Equals(object? obj)
+        {
+            return GetType().Equals(obj?.GetType()) && GetHashCode() == obj?.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() ^ RequiredAmount.GetHashCode();
+        }
     }
 }

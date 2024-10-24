@@ -1,0 +1,7 @@
+{ 
+    "versions": null, 
+    "generatorFile": "test.js", 
+    "goalsUrl": "127.0.0.1/",
+    "useLocalGoals": true,
+    "useLocalGenerator": true
+}

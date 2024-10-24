@@ -1,5 +1,8 @@
 {
   "versions": "https://hpbingo.github.io/api/v1/available_versions.json",
   "goalsUrl": "https://hpbingo.github.io/???/goal-list.js",
-  "generatorFile": "Generator\\???\\generator.js"
+  "generatorFile": "Generator\\???\\generator.js",
+  "useLocalVersions": false,
+  "useLocalGoals": false,
+  "useLocalGenerator": true
 }

@@ -11,6 +11,6 @@ namespace HPBingoCounter.Core.Config
         public IDictionary<string, string> VersionDictionary { get; set; } = new Dictionary<string, string>();
 
         [JsonIgnore]
-        public bool IsValid => VersionDictionary.Any() && !string.IsNullOrEmpty(DefaultVersion);
+        public bool IsValid => (VersionDictionary?.Any() ?? false) && !string.IsNullOrWhiteSpace(DefaultVersion);
     }
 }

@@ -13,6 +13,18 @@ namespace HPBingoCounter.Core.Config
         [JsonProperty("goalsUrl")]
         public string? GoalsUrl { get; set; }
 
+        [JsonProperty("useLocalVersions")]
+        public bool UseLocalVersions { get; set; }
+
+        [JsonProperty("useLocalGoals")]
+        public bool UseLocalGoals { get; set; }
+
+        [JsonProperty("useLocalGenerator")]
+        public bool UseLocalGenerator { get; set; }
+
+        [JsonIgnore]
+        public bool SearchAllFilesLocally => UseLocalGenerator && UseLocalGoals && UseLocalVersions;
+
         [JsonIgnore]
         public string? FilePath { get; set; }
     }

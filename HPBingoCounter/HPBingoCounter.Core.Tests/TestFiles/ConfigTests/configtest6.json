@@ -1,0 +1,6 @@
+{ 
+    "versions": "Test v1.0", 
+    "generatorFile": "", 
+    "goalsUrl": "127.0.0.1/",
+    "useLocalGoals": true
+}

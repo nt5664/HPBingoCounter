@@ -1,0 +1,11 @@
+{ 
+    "data": 
+    [
+        {
+            "versions": "Test v1.0", 
+            "generatorFile": "test.js", 
+            "goalsUrl": "127.0.0.1/",
+            "useLocalGenerator": true
+        }
+    ]
+}
