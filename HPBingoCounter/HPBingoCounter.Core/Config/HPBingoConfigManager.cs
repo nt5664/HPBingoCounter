@@ -63,7 +63,10 @@ namespace HPBingoCounter.Core.Config
 
             ArgumentNullException.ThrowIfNull(version);
 
-            return $@"{Directory.GetCurrentDirectory()}\{Current.GeneratorFile.Replace(URL_WILDCARD, version)}";
+            string generatorUrl = Current.GeneratorFile.Replace(URL_WILDCARD, version);
+            return Current.UseLocalGenerator ? 
+                $@"{Directory.GetCurrentDirectory()}\{generatorUrl}" :
+                generatorUrl;
         }
 
         public static string GetGoalsUrlForVersion(string version)
@@ -73,7 +76,10 @@ namespace HPBingoCounter.Core.Config
 
             ArgumentNullException.ThrowIfNull(version);
 
-            return Current.GoalsUrl.Replace(URL_WILDCARD, version);
+            string goalsUrl = Current.GoalsUrl.Replace(URL_WILDCARD, version);
+            return Current.UseLocalGoals ? 
+                $@"{Directory.GetCurrentDirectory()}\{goalsUrl}" :
+                goalsUrl;
         }
     }
 }
