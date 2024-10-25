@@ -40,6 +40,10 @@ namespace HPBingoCounter.ViewModels
             public static void BoardCleared()
             {
                 InstanceCtr = 0;
+                foreach (BingoState state in InstancePool)
+                {
+                    state.Reset();
+                }
             }
 
             public static void RemoveUnusedInstances()
