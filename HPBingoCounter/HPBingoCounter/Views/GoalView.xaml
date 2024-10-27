@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:HPBingoCounter.ViewModels"
+             xmlns:c="clr-namespace:HPBingoCounter.Coverters"
              mc:Ignorable="d"
              d:DesignHeight="150" d:DesignWidth="150"
              d:DataContext="{d:DesignInstance vm:BingoGoalViewModel, IsDesignTimeCreatable=False}">
@@ -17,12 +18,30 @@
 
     <Border
         Style="{StaticResource GoalCardStyle}">
+        <Border.InputBindings>
+            <MouseBinding Gesture="RightClick" Command="{Binding TogglePinCommand, Mode=OneTime}" />
+        </Border.InputBindings>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <Canvas
+                Grid.Row="0"
+                Margin="-5"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Width="24"
+                Height="24"
+                Visibility="{Binding IsPinned, Mode=OneWay, Converter={c:ShowWhenTrue}}">
+                <Path
+                    Stroke="DarkGoldenrod"
+                    Fill="Yellow" 
+                    Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+            </Canvas>
+            
             <TextBlock
                 Grid.Row="0"
                 HorizontalAlignment="Center"

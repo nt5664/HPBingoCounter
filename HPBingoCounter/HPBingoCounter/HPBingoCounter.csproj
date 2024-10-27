@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Images\appicon.ico" />
+    <None Remove="Images\open-in-browser.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Images\appicon.ico" />
+    <Resource Include="Images\open-in-browser.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

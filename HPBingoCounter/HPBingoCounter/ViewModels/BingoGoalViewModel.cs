@@ -12,17 +12,29 @@ namespace HPBingoCounter.ViewModels
         {
             IncrementCommand = new DelegateCommand(_ => ++Count, _ => _goal is not null && !IsCompleted);
             ReductCommand = new DelegateCommand(_ => --Count, _ => _goal is not null && Count > 0);
+            TogglePinCommand = new DelegateCommand(_ => IsPinned = !IsPinned);
+
+            IsPinned = false;
         }
 
         public DelegateCommand IncrementCommand { get; }
 
         public DelegateCommand ReductCommand { get; }
 
+        public DelegateCommand TogglePinCommand { get; }
+
         public string Name => _goal?.Name ?? "NULL";
 
         public int RequiredAmount => _goal?.RequiredAmount ?? -1;
 
         public bool IsCompleted => GoalState.Equals(GoalStates.Completed);
+
+        private bool _isPinned;
+        public bool IsPinned
+        {
+            get => _isPinned;
+            set => SetValue(ref _isPinned, value);
+        }
 
         private int _count;
         public int Count
@@ -63,6 +75,7 @@ namespace HPBingoCounter.ViewModels
         {
             _goal = goal;
             Count = 0;
+            IsPinned = false;
             RaisePropertyChanged(nameof(Name), nameof(RequiredAmount));
             IncrementCommand.RaiseCanExecuteChanged();
             ReductCommand.RaiseCanExecuteChanged();

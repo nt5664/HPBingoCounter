@@ -15,7 +15,24 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
-    <Grid>
+    <Window.Resources>
+        <BitmapImage x:Key="OpenInBrowserImage" UriSource="/Images/open-in-browser.png" />
+
+        <DataTemplate x:Key="OpenExternalHeaderTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image 
+                    Source="{StaticResource OpenInBrowserImage}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="15"
+                    Width="15" />
+                <ContentPresenter Content="{Binding Header, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}}}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid
+        Background="WhiteSmoke">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
@@ -23,11 +40,11 @@
         <Menu
             Grid.Row="0">
             <MenuItem
-                Header="_New Board"
+                Header="New Board"
                 IsEnabled="{Binding SelectNewBoard, Mode=OneWay, Converter={c:InvertBoolConverter}}"
                 Command="{Binding ShowNewBoardConfigCommand, Mode=OneTime}" />
             <MenuItem
-                Header="_Comparison Mode"
+                Header="Comparison Mode"
                 ItemsSource="{Binding ComparisonModes, Mode=OneTime}">
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
@@ -54,10 +71,11 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
             <MenuItem
-                Header="_Bingo Website"
+                Header="Bingo Website"
+                HeaderTemplate="{StaticResource OpenExternalHeaderTemplate}"
                 Command="{Binding OpenBingoWebsiteCommand, Mode=OneTime}" />
             <MenuItem
-                Header="_Reload Config"
+                Header="Reload Config"
                 Command="{Binding RefreshAvailableConfigCommand, Mode=OneTime}"
                 ItemsSource="{Binding AvailableConfigFiles, Mode=OneWay}">
                 <MenuItem.ItemContainerStyle>
@@ -85,8 +103,14 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
             <MenuItem
-                Header="_Experiencing issues?"
-                Command="{Binding BugReportCommand, Mode=OneTime}" />
+                Header="Help">
+                <MenuItem
+                    Header="User Manual"
+                    HeaderTemplate="{StaticResource OpenExternalHeaderTemplate}" />
+                <MenuItem
+                    Header="Experiencing issues?"
+                    Command="{Binding BugReportCommand, Mode=OneTime}" />
+            </MenuItem>
         </Menu>
 
         <views:BoardView 
@@ -98,7 +122,7 @@
 
         <Border
             Grid.Row="1"
-            Background="Teal"
+            Background="WhiteSmoke"
             Visibility="{Binding ShowLoadingScreen, Mode=OneWay, Converter={c:ShowWhenTrue}}">
             <TextBlock
                 VerticalAlignment="Center"

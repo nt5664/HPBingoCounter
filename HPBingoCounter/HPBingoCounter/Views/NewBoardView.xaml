@@ -83,7 +83,9 @@
                         TextAlignment="Right"
                         Text="{Binding Seed, Mode=TwoWay}">
                         <i:Interaction.Behaviors>
-                            <behaviors:NumericTextBoxBehavior MaxInputLength="6" />
+                            <behaviors:NumericTextBoxBehavior
+                                MaxInputLength="6"
+                                SelectAllTextOnFocus="True" />
                         </i:Interaction.Behaviors>
                     </TextBox>
 
