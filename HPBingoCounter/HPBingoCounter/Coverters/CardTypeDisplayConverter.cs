@@ -14,7 +14,7 @@ namespace HPBingoCounter.Coverters
             {
                 { HPBingoCardTypes.Normal, "Normal" },
                 { HPBingoCardTypes.Short, "Short" },
-                { HPBingoCardTypes.Lockout, "Blackout" }
+                { HPBingoCardTypes.Blackout, "Blackout" }
             };
         }
 

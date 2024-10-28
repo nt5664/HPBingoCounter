@@ -33,8 +33,8 @@ namespace HPBingoCounter.Core.Tests
             {
                 yield return new TestCaseData("TEST1.0", "123456", HPBingoCardTypes.Normal, new[] { new HPBingoGoal("Test", 3), new HPBingoGoal("Test2", 6) });
                 yield return new TestCaseData("TEST7.2", "000000", HPBingoCardTypes.Short, null);
-                yield return new TestCaseData("TEST160", "999999", HPBingoCardTypes.Lockout, new[] { null, new HPBingoGoal("Test5", 0), new HPBingoGoal(string.Empty, 1) });
-                yield return new TestCaseData("TEST160", "999999", HPBingoCardTypes.Lockout, Array.Empty<HPBingoGoal>());
+                yield return new TestCaseData("TEST160", "999999", HPBingoCardTypes.Blackout, new[] { null, new HPBingoGoal("Test5", 0), new HPBingoGoal(string.Empty, 1) });
+                yield return new TestCaseData("TEST160", "999999", HPBingoCardTypes.Blackout, Array.Empty<HPBingoGoal>());
             }
         }
 

@@ -4,6 +4,6 @@
     {
         Normal,
         Short,
-        Lockout
+        Blackout
     }
 }
