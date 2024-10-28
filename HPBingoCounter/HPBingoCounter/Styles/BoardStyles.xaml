@@ -17,7 +17,7 @@
         TargetType="{x:Type Border}">
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="Background" Value="DarkSlateGray" />
+        <Setter Property="Background" Value="SlateGray" />
         <Setter Property="Padding" Value="3" />
         <Setter Property="Margin" Value="3" />
         <Setter Property="CornerRadius" Value="5" />

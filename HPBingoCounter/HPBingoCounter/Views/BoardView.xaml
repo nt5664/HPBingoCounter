@@ -127,57 +127,88 @@
                 </Grid>
             </Border>
 
-            <Button
+            <Grid
                 Grid.Column="0"
                 Grid.Row="1"
-                Style="{StaticResource GreenButtonStyle}"
-                Command="{Binding SaveStateCommand}">
-                <TextBlock
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextAlignment="Center"
-                    FontWeight="Bold"
-                    Text="Save State" />
-            </Button>
+                Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button
+                    Grid.Column="0"
+                    ToolTip="Persists the current state of the board"
+                    ToolTipService.ShowDuration="60000"
+                    Style="{StaticResource GreenButtonStyle}"
+                    Command="{Binding SaveStateCommand, Mode=OneTime}">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        FontWeight="Bold"
+                        Text="Save State" />
+                </Button>
 
-            <Button
-                Grid.Column="1"
-                Grid.Row="1"
-                Style="{StaticResource YellowButtonStyle}"
-                Command="{Binding LoadSavedStateCommand}">
-                <TextBlock
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextAlignment="Center"
-                    FontWeight="Bold"
-                    Text="Load Saved State" />
-            </Button>
+                <Button
+                    Grid.Column="1"
+                    ToolTip="Restores the saved state when the player resets (e.g. fainting or reloading a save book)"
+                    ToolTipService.ShowDuration="60000"
+                    Style="{StaticResource YellowButtonStyle}"
+                    Command="{Binding LoadSavedStateCommand, Mode=OneTime}">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        FontWeight="Bold"
+                        Text="Load Saved State" />
+                </Button>
 
-            <Button
-                Grid.Column="2"
-                Grid.Row="1"
-                Style="{StaticResource RedButtonStyle}"
-                Command="{Binding ClearSavedStateCommand}">
-                <TextBlock
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextAlignment="Center"
-                    FontWeight="Bold"
-                    Text="Clear Saved State" />
-            </Button>
+                <Button
+                    Grid.Column="2"
+                    ToolTip="Clears the saved state of the board"
+                    ToolTipService.ShowDuration="60000"
+                    Style="{StaticResource RedButtonStyle}"
+                    Command="{Binding ClearSavedStateCommand, Mode=OneTime}">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        FontWeight="Bold"
+                        Text="Clear Saved State" />
+                </Button>
 
-            <Button
-                Grid.Column="3"
-                Grid.Row="1"
-                Style="{StaticResource RedButtonStyle}"
-                Command="{Binding ResetBoardCommand}">
-                <TextBlock
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextAlignment="Center"
-                    FontWeight="Bold"
-                    Text="Reset Board" />
-            </Button>
+                <Button
+                    Grid.Column="3"
+                    ToolTip="Clears the saved state and resets the board to the initial state. Be careful: the progress will be lost"
+                    ToolTipService.ShowDuration="60000"
+                    Style="{StaticResource RedButtonStyle}"
+                    Command="{Binding ResetBoardCommand, Mode=OneTime}">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        FontWeight="Bold"
+                        Text="Reset Board" />
+                </Button>
+
+                <Button
+                    Grid.Column="4"
+                    ToolTip="Copies the pinned goals that have more than 1 requirement to the clipboard in a readable format"
+                    ToolTipService.ShowDuration="60000"
+                    Style="{StaticResource DefaultButtonStyle}"
+                    Command="{Binding CopyStateToClipboardCommand, Mode=OneTime}">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        FontWeight="Bold"
+                        Text="Copy to Clipboard" />
+                </Button>
+            </Grid>
         </Grid>
 
         <Border

@@ -11,6 +11,8 @@ namespace HPBingoCounter.ViewModels
         private const string DEFAULT_SEED = "000000";
         private const HPBingoCardTypes DEFAULT_CARD_TYPE = HPBingoCardTypes.Normal;
 
+        private static readonly Random Rnd = new();
+
         private readonly IBingoService _bingoService;
 
         public BoardConfigViewModel(IBingoService bingoService, DelegateCommand newBoardCommand, DelegateCommand cancelCommand)
@@ -19,6 +21,7 @@ namespace HPBingoCounter.ViewModels
             CancelCommand = cancelCommand ?? throw new ArgumentNullException(nameof(cancelCommand));
             RequestNewBoardCommand = newBoardCommand ?? throw new ArgumentNullException(nameof(newBoardCommand));
             AvailableVersions = new ObservableCollection<string>();
+            RandomSeedCommand = new DelegateCommand(_ => Seed = (Rnd.NextDouble() * 999999d).ToString("F0"));
             
             RefreshAvailableVersions();
         }
@@ -26,6 +29,8 @@ namespace HPBingoCounter.ViewModels
         public DelegateCommand CancelCommand { get; }
 
         public DelegateCommand RequestNewBoardCommand { get; }
+
+        public DelegateCommand RandomSeedCommand { get; }
 
         private string? _seed;
         public string Seed

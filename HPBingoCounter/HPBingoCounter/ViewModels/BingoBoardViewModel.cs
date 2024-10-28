@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using HPBingoCounter.Commands;
 using HPBingoCounter.Core.Models;
 using HPBingoCounter.Core.Types;
@@ -131,6 +132,16 @@ namespace HPBingoCounter.ViewModels
                 ClearSavedState();
                 LoadSavedStateCommand.Execute(null);
             }, CanExecuteCommand);
+
+            CopyStateToClipboardCommand = new DelegateCommand(_ => 
+            {
+                List<string> statesToCopy = Goals
+                    .Where(x => x.IsPinned && x.RequiredAmount > 1)
+                    .Select(x => string.Format("{0}/{1} {2}", x.Count, x.RequiredAmount, x.Name))
+                    .ToList();
+
+                Clipboard.SetText($"Current Goal States: {(statesToCopy.Count > 0 ? string.Join("; ", statesToCopy) : "No Goals to Show")}");
+            }, CanExecuteCommand);
         }
 
         public ObservableCollection<BingoGoalViewModel> Goals { get; }
@@ -142,6 +153,8 @@ namespace HPBingoCounter.ViewModels
         public DelegateCommand ClearSavedStateCommand { get; }
 
         public DelegateCommand ResetBoardCommand { get; }
+
+        public DelegateCommand CopyStateToClipboardCommand { get; }
 
         private string? _boardVersion;
         public string? BoardVersion
@@ -280,6 +293,7 @@ namespace HPBingoCounter.ViewModels
             LoadSavedStateCommand.RaiseCanExecuteChanged();
             ClearSavedStateCommand.RaiseCanExecuteChanged();
             ResetBoardCommand.RaiseCanExecuteChanged();
+            CopyStateToClipboardCommand.RaiseCanExecuteChanged();
         }
 
         public override void Dispose()
