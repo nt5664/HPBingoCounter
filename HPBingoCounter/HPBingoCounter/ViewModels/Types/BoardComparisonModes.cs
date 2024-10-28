@@ -11,6 +11,7 @@ namespace HPBingoCounter.ViewModels.Types
         Single,
         Double,
         Triple,
+        Blackout,
         Elimination
     }
 }

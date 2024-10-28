@@ -25,32 +25,35 @@ namespace HPBingoCounter.Core
             get
             {
                 if (_versions is null)
-                {
-                    if (HPBingoConfigManager.Current is null || HPBingoConfigManager.Current.VersionUrl is null)
-                        throw new InvalidOperationException("Invalid config; cannot resolve versions. Reload the config and try again");
-
-                    string versions;
-                    if (!HPBingoConfigManager.Current.UseLocalVersions)
-                    {
-                        using var hc = new HttpClient();
-
-                        var req = hc.GetStringAsync(HPBingoConfigManager.Current.VersionUrl);
-                        req.Wait();
-                        versions = req.Result;
-                    }
-                    else
-                    {
-                        versions = File.ReadAllText(HPBingoConfigManager.Current.VersionUrl);
-                    }
-
-                    if (string.IsNullOrEmpty(versions))
-                        throw new InvalidOperationException("Cannot obtain versions or the file is invalid");
-
-                    _versions = JsonConvert.DeserializeObject<HPBingoVersions>(versions);
-                }
+                    ForceReloadVersions();
 
                 return _versions;
             }
+        }
+
+        public void ForceReloadVersions()
+        {
+            if (HPBingoConfigManager.Current is null || HPBingoConfigManager.Current.VersionUrl is null)
+                throw new InvalidOperationException("Invalid config; cannot resolve versions. Reload the config and try again");
+
+            string versions;
+            if (!HPBingoConfigManager.Current.UseLocalVersions)
+            {
+                using var hc = new HttpClient();
+
+                var req = hc.GetStringAsync(HPBingoConfigManager.GetVersionsPath());
+                req.Wait();
+                versions = req.Result;
+            }
+            else
+            {
+                versions = File.ReadAllText(HPBingoConfigManager.GetVersionsPath());
+            }
+
+            if (string.IsNullOrEmpty(versions))
+                throw new InvalidOperationException("Cannot obtain versions or the file is invalid");
+
+            _versions = JsonConvert.DeserializeObject<HPBingoVersions>(versions);
         }
 
         public void Dispose()
@@ -59,7 +62,7 @@ namespace HPBingoCounter.Core
             GC.SuppressFinalize(this);
         }
 
-        public async void RequestNewBoard(string version, HPBingoCardTypes cardType, string seed)
+        public async Task RequestNewBoardAsync(string version, HPBingoCardTypes cardType, string seed)
         {
             if (HPBingoConfigManager.Current is null)
                 throw new InvalidOperationException("Invalid config; cannot resolve data. Reload the config and try again");

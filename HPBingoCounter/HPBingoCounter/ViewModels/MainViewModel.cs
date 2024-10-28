@@ -26,7 +26,7 @@ namespace HPBingoCounter.ViewModels
                     ShowLoadingScreen = true;
                     SelectNewBoard = false;
                     SafeInvoke(
-                        () => _service.RequestNewBoard(NewBoardConfigViewModel.SelectedVersion, NewBoardConfigViewModel.SelectedCardType, NewBoardConfigViewModel.Seed),
+                        () => _service.RequestNewBoardAsync(NewBoardConfigViewModel.SelectedVersion, NewBoardConfigViewModel.SelectedCardType, NewBoardConfigViewModel.Seed),
                         () => ShowLoadingScreen = false
                     );
                 }, _ => !string.IsNullOrWhiteSpace(NewBoardConfigViewModel.SelectedVersion) && !string.IsNullOrWhiteSpace(NewBoardConfigViewModel.Seed)),
@@ -54,6 +54,7 @@ namespace HPBingoCounter.ViewModels
                 SafeInvoke(() => 
                 {
                     HPBingoConfigManager.ReloadConfig(configFile);
+                    _service.ForceReloadVersions();
                     NewBoardConfigViewModel.RefreshAvailableVersions();
                     MessageBox.Show($"Config file ({configFile}) successfully loaded", "Status", MessageBoxButton.OK, MessageBoxImage.Information);
                 });

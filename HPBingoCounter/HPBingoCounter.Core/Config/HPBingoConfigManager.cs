@@ -13,11 +13,13 @@ namespace HPBingoCounter.Core.Config
             ReloadConfig();
         }
 
+        private static string BaseDirectory = Directory.GetCurrentDirectory();
+
         public static IConfig? Current { get; private set; }
 
-        public static string ApiPath => $@"{Directory.GetCurrentDirectory()}\{API_FILE}";
+        public static string ApiPath => $@"{BaseDirectory}\{API_FILE}";
 
-        private static string ConfigDirectory => $@"{Directory.GetCurrentDirectory()}\Config";
+        private static string ConfigDirectory => $@"{BaseDirectory}\Config";
 
         public static IEnumerable<string> AvailableConfigFiles
         {
@@ -33,6 +35,11 @@ namespace HPBingoCounter.Core.Config
                 return Directory.GetFiles(ConfigDirectory, "*.json", options)
                     .Select(x => x.Split('\\').Last());
             }
+        }
+
+        public static void SetConfigBaseDirectory(string? directory = null)
+        {
+            BaseDirectory = directory ?? Directory.GetCurrentDirectory();
         }
 
         public static IConfig? ReloadConfig(string? configFileName = null)
@@ -56,6 +63,17 @@ namespace HPBingoCounter.Core.Config
             return Current;
         }
 
+        public static string GetVersionsPath()
+        {
+            if (Current is null || string.IsNullOrEmpty(Current.VersionUrl))
+                throw new InvalidOperationException("Invalid config, reload and try again");
+
+            string versionUrl = Current.VersionUrl;
+            return Current.UseLocalVersions ?
+                $@"{BaseDirectory}\{versionUrl}" :
+                versionUrl;
+        }
+
         public static string GetGeneratorForVersion(string version)
         {
             if (Current is null || string.IsNullOrEmpty(Current.GeneratorFile))
@@ -65,7 +83,7 @@ namespace HPBingoCounter.Core.Config
 
             string generatorUrl = Current.GeneratorFile.Replace(URL_WILDCARD, version);
             return Current.UseLocalGenerator ? 
-                $@"{Directory.GetCurrentDirectory()}\{generatorUrl}" :
+                $@"{BaseDirectory}\{generatorUrl}" :
                 generatorUrl;
         }
 
@@ -78,7 +96,7 @@ namespace HPBingoCounter.Core.Config
 
             string goalsUrl = Current.GoalsUrl.Replace(URL_WILDCARD, version);
             return Current.UseLocalGoals ? 
-                $@"{Directory.GetCurrentDirectory()}\{goalsUrl}" :
+                $@"{BaseDirectory}\{goalsUrl}" :
                 goalsUrl;
         }
     }

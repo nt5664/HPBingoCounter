@@ -98,7 +98,7 @@
                     <TextBlock
                         Grid.Row="1"
                         Style="{StaticResource BoardInfoValueStyle}"
-                        Text="{Binding CardType, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                        Text="{Binding CardType, Mode=OneWay, Converter={c:CardTypeDisplayConverter}, TargetNullValue='NULL', FallbackValue='-'}" />
                 </Grid>
             </Border>
             <Border 

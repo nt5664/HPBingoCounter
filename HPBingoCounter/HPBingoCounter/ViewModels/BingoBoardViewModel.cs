@@ -190,7 +190,7 @@ namespace HPBingoCounter.ViewModels
                 if (!SetValue(ref _comparisonMode, value, nameof(ComparisonMode), nameof(RequiredGoals), nameof(IsBoardCompleted)))
                     return;
 
-                CompletedGoals = value.Equals(BoardComparisonModes.Elimination) ?
+                CompletedGoals = value.Equals(BoardComparisonModes.Elimination) || value.Equals(BoardComparisonModes.Blackout) ?
                     Goals.Count(x => x.IsCompleted) :
                     _bingos.Count(x => x.IsBingo);
             }
@@ -205,6 +205,7 @@ namespace HPBingoCounter.ViewModels
                     BoardComparisonModes.Single => 1,
                     BoardComparisonModes.Double => 2,
                     BoardComparisonModes.Triple => 3,
+                    BoardComparisonModes.Blackout => Goals.Count,
                     BoardComparisonModes.Elimination => (int)Math.Ceiling(Goals.Count / 2d),
                     _ => 0,
                 };
@@ -339,11 +340,11 @@ namespace HPBingoCounter.ViewModels
 
             if (e.PropertyName.Equals(nameof(BingoGoalViewModel.IsCompleted)))
             {
-                bool isElmimination = ComparisonMode.Equals(BoardComparisonModes.Elimination);
+                bool isBlackout = ComparisonMode.Equals(BoardComparisonModes.Elimination) || ComparisonMode.Equals(BoardComparisonModes.Blackout);
                 int diff = 0;
 
-                // in elimination mode, the objective is to get 50% + 1 goals faster than the opponent
-                if (isElmimination)
+                // in elimination mode, the objective is to get 50% + 1 goals faster than the opponent or in blackout mode, the player needs to complete all goals
+                if (isBlackout)
                 { 
                     diff += vm.IsCompleted ? 1 : -1;
                 }
@@ -354,7 +355,7 @@ namespace HPBingoCounter.ViewModels
                 {
                     bool prevState = bingo.IsBingo;
                     bingo.SetState(vm.GetGoalHashCode(), vm.IsCompleted);
-                    if (isElmimination)
+                    if (isBlackout)
                         continue;
 
                     diff += bingo.IsBingo switch

@@ -12,5 +12,15 @@ namespace HPBingoCounter.Core.Config
 
         [JsonIgnore]
         public bool IsValid => (VersionDictionary?.Any() ?? false) && !string.IsNullOrWhiteSpace(DefaultVersion);
+
+        public override bool Equals(object? obj)
+        {
+            return GetType() == obj?.GetType() && GetHashCode() == obj?.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return DefaultVersion.GetHashCode() ^ VersionDictionary.GetHashCode();
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace HPBingoCounter.Core
         IObservable<HPBingoBoardDto> NewBoardObservable { get; }
         IBingoVersions? Versions { get; }
 
-        void RequestNewBoard(string version, HPBingoCardTypes cardType, string seed);
+        void ForceReloadVersions();
+        Task RequestNewBoardAsync(string version, HPBingoCardTypes cardType, string seed);
     }
 }

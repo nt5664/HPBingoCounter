@@ -49,9 +49,9 @@
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
                         <Setter Property="IsCheckable" Value="True" />
-                        <Setter Property="Header" Value="{Binding ., Mode=OneWay}" />
+                        <Setter Property="Header" Value="{Binding ., Mode=OneWay, Converter={c:ComparisonModeDisplayConverter}}" />
                         <Setter Property="Command" Value="{Binding DataContext.SetComparisonModeCommand, Mode=OneTime, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}" />
-                        <Setter Property="CommandParameter" Value="{Binding .}" />
+                        <Setter Property="CommandParameter" Value="{Binding ., Mode=OneWay}" />
                         <Setter Property="IsChecked">
                             <Setter.Value>
                                 <MultiBinding
