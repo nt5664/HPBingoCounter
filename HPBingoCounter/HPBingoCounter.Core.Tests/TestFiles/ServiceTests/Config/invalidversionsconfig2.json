@@ -1,0 +1,8 @@
+{
+    "versions": "Generator\\nonexistentversions.json",
+    "goalsUrl": "Generator\\???\\goal-list.js",
+    "generatorFile": "Generator\\???\\generator.js",
+    "useLocalVersions": true,
+    "useLocalGoals": true,
+    "useLocalGenerator": true
+  }

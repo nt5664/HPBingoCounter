@@ -1,0 +1,8 @@
+{
+    "versions": "http://127.0.0.1/url/not/valid.json",
+    "goalsUrl": "Generator\\???\\goal-list.js",
+    "generatorFile": "Generator\\???\\generator.js",
+    "useLocalVersions": false,
+    "useLocalGoals": true,
+    "useLocalGenerator": true
+  }
