@@ -129,8 +129,11 @@ namespace HPBingoCounter.ViewModels
             ClearSavedStateCommand = new DelegateCommand(_ => ClearSavedState(), CanExecuteCommand);
             ResetBoardCommand = new DelegateCommand(_ =>
             {
-                ClearSavedState();
-                LoadSavedStateCommand.Execute(null);
+                if (MessageBox.Show("Are you sure you want to reset the board? This action cannot be undone.", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    ClearSavedState();
+                    LoadSavedStateCommand.Execute(null);
+                }
             }, CanExecuteCommand);
 
             CopyStateToClipboardCommand = new DelegateCommand(_ => 

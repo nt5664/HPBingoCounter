@@ -106,7 +106,8 @@
                 Header="Help">
                 <MenuItem
                     Header="User Manual"
-                    HeaderTemplate="{StaticResource OpenExternalHeaderTemplate}" />
+                    HeaderTemplate="{StaticResource OpenExternalHeaderTemplate}"
+                    Command="{Binding OpenUserManualCommand, Mode=OneTime}" />
                 <MenuItem
                     Header="Experiencing issues?"
                     Command="{Binding BugReportCommand, Mode=OneTime}" />
