@@ -5,17 +5,29 @@ namespace HPBingoCounter.Core.Models
     public class HPBingoGoal
     {
         [JsonConstructor]
-        public HPBingoGoal(string name, int amount)
+        public HPBingoGoal(string id, string name, int amount, int uniqueAmount, IEnumerable<string>? triggers)
         {
+            Id = id;
             Name = name;
+            UniqueAmount = uniqueAmount;
             RequiredAmount = amount;
+            Triggers = triggers;
         }
+
+        [JsonProperty("id")]
+        public string Id { get; }
 
         [JsonProperty("name")]
         public string Name { get; }
 
+        [JsonProperty("uniqueAmount")]
+        public int UniqueAmount { get; }
+
         [JsonProperty("amount")]
         public int RequiredAmount { get; }
+
+        [JsonProperty("triggers")]
+        public IEnumerable<string>? Triggers { get; }
 
         public override bool Equals(object? obj)
         {
@@ -24,7 +36,11 @@ namespace HPBingoCounter.Core.Models
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode() ^ RequiredAmount.GetHashCode();
+            return 
+                Id.GetHashCode() ^ 
+                Name.GetHashCode() ^ 
+                RequiredAmount.GetHashCode() ^ 
+                UniqueAmount.GetHashCode();
         }
     }
 }

@@ -5,7 +5,6 @@ namespace HPBingoCounter.Core.Config
     public static class HPBingoConfigManager
     {
         private const string DEFAULT_CONFIG_FILE = @"appconfig.json";
-        private const string API_FILE = @"Generator\api.js";
         private const string URL_WILDCARD = "???";
 
         static HPBingoConfigManager()
@@ -16,8 +15,6 @@ namespace HPBingoCounter.Core.Config
         private static string BaseDirectory = Directory.GetCurrentDirectory();
 
         public static IConfig? Current { get; private set; }
-
-        public static string ApiPath => $@"{BaseDirectory}\{API_FILE}";
 
         private static string ConfigDirectory => $@"{BaseDirectory}\Config";
 
@@ -61,6 +58,17 @@ namespace HPBingoCounter.Core.Config
             }
 
             return Current;
+        }
+
+        public static string GetApiPath()
+        {
+            if (Current is null || string.IsNullOrEmpty(Current.ApiFile))
+                throw new InvalidOperationException("Invalid config, reload and try again");
+
+            string apiUrl = Current.ApiFile;
+            return Current.UseLocalApi ?
+                $@"{BaseDirectory}\{apiUrl}" :
+                apiUrl;
         }
 
         public static string GetVersionsPath()

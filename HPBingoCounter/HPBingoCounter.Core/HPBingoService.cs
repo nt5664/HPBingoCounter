@@ -85,7 +85,10 @@ namespace HPBingoCounter.Core
                     File.ReadAllText(goalsPath) :
                     await hc.GetStringAsync(goalsPath);
 
-                api = File.ReadAllText(HPBingoConfigManager.ApiPath);
+                string apiPath = HPBingoConfigManager.GetApiPath();
+                api = HPBingoConfigManager.Current.UseLocalApi ?
+                    File.ReadAllText(apiPath) :
+                    await hc.GetStringAsync(apiPath);
             }
             catch (Exception ex)
             {

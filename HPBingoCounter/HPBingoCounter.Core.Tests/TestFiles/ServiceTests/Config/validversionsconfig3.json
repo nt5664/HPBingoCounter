@@ -2,6 +2,8 @@
     "versions": "Generator\\versions_valid3.json",
     "goalsUrl": "Generator\\???\\goal-list.js",
     "generatorFile": "Generator\\???\\testgenerator.js",
+    "apiFile": "Generator\\api.js",
+    "useLocalApi": true,
     "useLocalVersions": true,
     "useLocalGoals": true,
     "useLocalGenerator": true

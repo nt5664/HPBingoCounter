@@ -1,0 +1,10 @@
+{
+  "versions": "Generator\\versions.json",
+  "goalsUrl": "Generator\\???\\goal-list.js",
+  "generatorFile": "Generator\\???\\generator.js",
+  "apiFile": "Generator\\api.js",
+  "useLocalApi":  true,
+  "useLocalVersions": true,
+  "useLocalGoals": true,
+  "useLocalGenerator": true
+}
