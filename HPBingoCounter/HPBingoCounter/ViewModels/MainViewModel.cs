@@ -25,8 +25,8 @@ namespace HPBingoCounter.ViewModels
                 {
                     ShowLoadingScreen = true;
                     SelectNewBoard = false;
-                    SafeInvoke(
-                        () => _service.RequestNewBoardAsync(NewBoardConfigViewModel.SelectedVersion, NewBoardConfigViewModel.SelectedCardType, NewBoardConfigViewModel.Seed),
+                    SafeInvokeAsync(
+                        async () => await _service.RequestNewBoardAsync(NewBoardConfigViewModel.SelectedVersion, NewBoardConfigViewModel.SelectedCardType, NewBoardConfigViewModel.Seed),
                         () => ShowLoadingScreen = false
                     );
                 }, _ => !string.IsNullOrWhiteSpace(NewBoardConfigViewModel.SelectedVersion) && !string.IsNullOrWhiteSpace(NewBoardConfigViewModel.Seed)),

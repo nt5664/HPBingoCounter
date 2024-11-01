@@ -48,14 +48,32 @@ namespace HPBingoCounter.ViewModels
             }
             catch (Exception ex)
             {
-                StringBuilder sb = new StringBuilder($"Error!{Environment.NewLine}");
-                sb.AppendLine(ex.Message);
-                sb.Append("Inner exception: ");
-                sb.AppendLine(ex.InnerException?.Message);
-
-                MessageBox.Show(sb.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowError(ex);
                 cleanupAction?.Invoke();
             }
+        }
+
+        protected static async void SafeInvokeAsync(Func<Task> action, Action? cleanupAction = null)
+        {
+            try
+            {
+                await action();
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+                cleanupAction?.Invoke();
+            }
+        }
+
+        private static void ShowError(Exception ex)
+        {
+            StringBuilder sb = new StringBuilder($"Error!{Environment.NewLine}");
+            sb.AppendLine(ex.Message);
+            sb.Append("Inner exception: ");
+            sb.AppendLine(ex.InnerException?.Message);
+
+            MessageBox.Show(sb.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
