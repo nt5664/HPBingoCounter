@@ -110,6 +110,7 @@ namespace HPBingoCounter.ViewModels
         }
 
         private readonly Dictionary<int, int> _savedState;
+        private readonly Dictionary<string, BingoGoalViewModel> _goalDictionary;
         private readonly List<BingoState> _bingos;
 
         private int _boardDimension;
@@ -117,6 +118,7 @@ namespace HPBingoCounter.ViewModels
         public BingoBoardViewModel()
         {
             _savedState = new Dictionary<int, int>();
+            _goalDictionary = new Dictionary<string, BingoGoalViewModel>();
             _bingos = new List<BingoState>();
             _boardDimension = 0;
             Goals = new ObservableCollection<BingoGoalViewModel>();
@@ -225,6 +227,7 @@ namespace HPBingoCounter.ViewModels
         public void LoadBoard(HPBingoBoardDto board)
         {
             _savedState.Clear();
+            _goalDictionary.Clear();
             _bingos.Clear();
             BingoState.BoardCleared();
 
@@ -252,6 +255,7 @@ namespace HPBingoCounter.ViewModels
                     {
                         var newVm = new BingoGoalViewModel();
                         newVm.PropertyChanged += OnGoalPropertyChanged;
+                        newVm.CounterSet += OnGoalCounterSet;
                         Goals.Add(newVm);
                     }
 
@@ -260,6 +264,10 @@ namespace HPBingoCounter.ViewModels
 
                     int goalHash = goalVm.GetGoalHashCode();
                     _savedState.Add(goalHash, 0);
+
+                    // Backward compatibility
+                    if (goalVm.Id != null)
+                        _goalDictionary.Add(goalVm.Id, goalVm);
 
                     int row = idx / _boardDimension;
                     int col = idx % _boardDimension;
@@ -283,6 +291,7 @@ namespace HPBingoCounter.ViewModels
             {
                 var goalToDelete = Goals[idx];
                 goalToDelete.PropertyChanged -= OnGoalPropertyChanged;
+                goalToDelete.CounterSet -= OnGoalCounterSet;
                 Goals.Remove(goalToDelete);
             }
 
@@ -298,6 +307,9 @@ namespace HPBingoCounter.ViewModels
             ClearSavedStateCommand.RaiseCanExecuteChanged();
             ResetBoardCommand.RaiseCanExecuteChanged();
             CopyStateToClipboardCommand.RaiseCanExecuteChanged();
+
+            if (IsBoardEmpty)
+                MessageBox.Show("The Request returned 0 goals", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         public override void Dispose()
@@ -306,6 +318,7 @@ namespace HPBingoCounter.ViewModels
             foreach (var goal in Goals)
             {
                 goal.PropertyChanged -= OnGoalPropertyChanged;
+                goal.CounterSet -= OnGoalCounterSet;
                 goal.Dispose();
             }
 
@@ -370,6 +383,24 @@ namespace HPBingoCounter.ViewModels
                 }
 
                 CompletedGoals += diff;
+            }
+        }
+
+        private void OnGoalCounterSet(object? sender, GoalCounterChangedEventArgs e)
+        {
+            if (sender is not BingoGoalViewModel vm || e.Triggers is null)
+                return;
+
+            foreach (var trigger in e.Triggers)
+            {
+                if (!_goalDictionary.TryGetValue(trigger, out BingoGoalViewModel vmToTrigger))
+                    continue;
+
+                int newCount = vmToTrigger.Count + e.Diff;
+                if (newCount < 0 || newCount > vmToTrigger.UniqueAmount)
+                    continue;
+
+                vmToTrigger.Count = newCount;
             }
         }
     }

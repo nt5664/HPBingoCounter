@@ -6,12 +6,28 @@ namespace HPBingoCounter.ViewModels
 {
     internal class BingoGoalViewModel : ViewModelBase
     {
+        public event EventHandler<GoalCounterChangedEventArgs>? CounterSet;
+
         private HPBingoGoal? _goal;
 
         public BingoGoalViewModel()
         {
-            IncrementCommand = new DelegateCommand(_ => ++Count, _ => _goal is not null && !IsCompleted);
-            ReductCommand = new DelegateCommand(_ => --Count, _ => _goal is not null && Count > 0);
+            IncrementCommand = new DelegateCommand(_ => 
+            {
+                ++Count;
+                if (_goal?.Triggers is null)
+                    return;
+
+                CounterSet?.Invoke(this, new GoalCounterChangedEventArgs(_goal.Triggers, 1));
+            }, _ => _goal is not null && !IsCompleted);
+            ReductCommand = new DelegateCommand(_ => 
+            { 
+                --Count;
+                if (_goal?.Triggers is null)
+                    return;
+
+                CounterSet?.Invoke(this, new GoalCounterChangedEventArgs(_goal.Triggers, -1));
+            }, _ => _goal is not null && Count > 0);
             TogglePinCommand = new DelegateCommand(_ => IsPinned = !IsPinned);
 
             IsPinned = false;
@@ -23,9 +39,13 @@ namespace HPBingoCounter.ViewModels
 
         public DelegateCommand TogglePinCommand { get; }
 
+        public string? Id => _goal?.Id;
+
         public string Name => _goal?.Name ?? "NULL";
 
         public int RequiredAmount => _goal?.RequiredAmount ?? -1;
+
+        public int UniqueAmount => _goal?.UniqueAmount ?? -1;
 
         public bool IsCompleted => GoalState.Equals(GoalStates.Completed);
 
@@ -76,7 +96,7 @@ namespace HPBingoCounter.ViewModels
             _goal = goal;
             Count = 0;
             IsPinned = false;
-            RaisePropertyChanged(nameof(Name), nameof(RequiredAmount));
+            RaisePropertyChanged(nameof(Id), nameof(Name), nameof(RequiredAmount), nameof(UniqueAmount));
             IncrementCommand.RaiseCanExecuteChanged();
             ReductCommand.RaiseCanExecuteChanged();
         }

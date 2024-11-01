@@ -1,0 +1,10 @@
+{
+    "versions": {
+	  "HP2 v4.2": "HP2 v4.2",
+    "HP2 v4.3": "HP2 v4.3",
+    "HP2 v4.4": "HP2 v4.4",
+    "HP2 v4.5": "HP2 v4.5"
+    },
+    "default_version": "HP2 v4.5"
+}
+
