@@ -14,7 +14,7 @@ var bingoList = {
 			{ "difficulty": 2, "id": "peeves-kill", "amount": 1, "name": "Defeat Peeves", "rowtypes": { "card": 0, "bean": 0, "star": 15 }, "skill": 0, "time": 1, "types": { "skurge": 1, "cauldrons": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 			{ "difficulty": 2, "id": "gnome-star", "amount": 1, "name": "Finish a Spell Challenge with a Gnome in your hand", "rowtypes": { "card": 0, "bean": 0, "star": 15 }, "skill": 0, "time": 1, "types": { "multi": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "completion-stars" ] },
 			{ "difficulty": 2, "id": "fireplace", "amount": 1, "name": "Go up the fireplace in Goyle", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "goyle": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
-			{ "difficulty": 2, "id": "matches-250", "amount": 1, "name": "Lose a Quidditch Match by at least 250 points", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "quid": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
+			{ "difficulty": 2, "id": "matches-250", "amount": 1, "name": "Lose a Quidditch Match by at least 250 points", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "quid": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "matches-6" ] },
 			{ "difficulty": 2, "id": "forest-beans", "amount": 1, "name": "Collect 16 beans around the tall tree in Forest", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "forest": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 		],
 		"3": [

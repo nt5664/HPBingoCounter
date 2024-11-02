@@ -197,8 +197,7 @@ bingoGenerator = function(bingoListR, opts) {
         var bingoBoard = [];
         for (var i = 1; i <= 25; i++) {
             bingoBoard[i] = {
-                difficulty: difficulty(i),
-                amount: 1
+                difficulty: difficulty(i)
             };
         }
         var used = [];
@@ -240,64 +239,17 @@ bingoGenerator = function(bingoListR, opts) {
             } while ((synergy != 0) && (j < possibleList.length));
             used.push(minSynObj.value);
             bingoBoard[i].types = minSynObj.value.types;
-
+            bingoBoard[i].id = minSynObj.value.id;
+            let amount = minSynObj.value.amount || 1;
             var name = minSynObj.value[LANG] || minSynObj.value.name;
-            const nameLc = name.toLowerCase();
-
-            if (nameLc.includes("secrets")) {
-                switch (nameLc) {
-                    case "activate both secrets in willow from out of bounds":
-                        bingoBoard[i].amount = 2;
-                        break;
-                    case "all grand staircase secrets":
-                        bingoBoard[i].amount = 10;
-                        break;
-                    case "all chamber secrets":
-                        bingoBoard[i].amount = 6;
-                        break;
-                    case "all boomslang secrets":
-                        bingoBoard[i].amount = 3;
-                        break;
-                    case "all gryffindor challenge secrets":
-                        bingoBoard[i].amount = 9;
-                        break;
-                    case "all skurge secrets":
-                    case "all rictusempra secrets":
-                    case "all bicorn secrets":
-                        bingoBoard[i].amount = 7;
-                        break;
-                    case "all goyle secrets":
-                    case "all slytherin secrets":
-                        bingoBoard[i].amount = 8;
-                        break;
-                    case "all entry hall secrets":
-                        bingoBoard[i].amount = 12;
-                        break;
-                    case "all forest secrets":
-                        bingoBoard[i].amount = 4;
-                        break;
-                    case "all spongify secrets":
-                        bingoBoard[i].amount = 16;
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            var amountMatched = name.match(/[0-9]+/g);
-            if (amountMatched !== null) {
-                var amount = parseInt(amountMatched[0]);
-                if (amount < 100) {
-                    bingoBoard[i].amount = amount;
-                }
-            }
-            
             name = name.replaceAll(/\{(\d+)-(\d+)\}/g, (match, p1, p2, offset, string) => {
                 var low = parseInt(p1);
                 var high = parseInt(p2);
                 var v = parseInt(Math.random() * (high - low + 1));
-                bingoBoard[i].amount = low + v;
-                return "" + (low + v);
+                let val = low + v;
+                amount *= val;
+                bingoBoard[i].uniqueAmount = val;
+                return "" + val;
             });
             name = name.replaceAll(/\{([\d,]+)\}/g, (match, p1, offset, string) => {
                 var parts = p1.split(",");
@@ -306,16 +258,8 @@ bingoGenerator = function(bingoListR, opts) {
             });
             bingoBoard[i].name = name;
             bingoBoard[i].synergy = minSynObj.synergy;
-
-            var multiplier = 1;
-            if (nameLc.includes("from each spell challenge")) {
-                multiplier = 4;
-            }
-            else if (nameLc.includes("each potion ingredients")) {
-                multiplier = 2;
-            }
-
-            bingoBoard[i].amount *= multiplier;
+            bingoBoard[i].amount = amount;
+            bingoBoard[i].triggers = minSynObj.value.triggers || null;
         }
         if (MODE == "lockout") {
             var usedLockout = [];
