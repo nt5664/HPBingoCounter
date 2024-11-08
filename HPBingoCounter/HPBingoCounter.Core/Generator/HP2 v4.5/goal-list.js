@@ -70,7 +70,7 @@ var bingoList = {
 			{ "difficulty": 10, "id": "boxes-7", "amount": 1, "name": "Empty {6-9} bean boxes", "rowtypes": { "card": 0, "bean": 10, "star": 0 }, "skill": 0, "time": 1, "types": { "multi": 1, "selfsynergy": -0.5 }, "weight": 0, "triggers": null },
 		],
 		"11": [
-			{ "difficulty": 11, "id": "silver-3", "amount": 1, "name": "Buy {2-4} Silver Wizard Cards", "rowtypes": { "card": 5, "bean": 25, "star": 0 }, "skill": 0, "time": 1, "types": { "duels": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "buy-8", "cards-23", "cards-37" ] },
+			{ "difficulty": 11, "id": "silver-3", "amount": 1, "name": "Buy {2-4} Silver Wizard Cards", "rowtypes": { "card": 5, "bean": 25, "star": 0 }, "skill": 0, "time": 1, "types": { "duels": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "buy-8" ] },
 			{ "difficulty": 11, "id": "rictu-stars", "amount": 1, "name": "{7-10} different Rictusempra Challenge Stars", "rowtypes": { "card": 0, "bean": 0, "star": 25 }, "skill": 0, "time": 1, "types": { "rictu": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "stars-17", "stars-31", "stars-5" ] },
 			{ "difficulty": 11, "id": "stair-secrets", "amount": 10, "name": "All Grand Staircase secrets", "rowtypes": { "card": 10, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "castle": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 			{ "difficulty": 11, "id": "bicorn-finish", "amount": 1, "name": "Complete Bicorn", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "bicorn": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
@@ -114,7 +114,7 @@ var bingoList = {
 			{ "difficulty": 18, "id": "bronze-10", "amount": 1, "name": "10 Bronze Wizard Cards without getting a health increase", "rowtypes": { "card": 20, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "cards": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 			{ "difficulty": 18, "id": "diffindo-stars-13", "amount": 1, "name": "Use {3-5} unique potion cauldrons", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "castle": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 			{ "difficulty": 18, "id": "imps", "amount": 1, "name": "Kill {5-9} Imps", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "kill": 1, "selfsynergy": -1 }, "weight": 0, "triggers": null },
-			{ "difficulty": 18, "id": "bronze-4", "amount": 1, "name": "Buy {3-6} Bronze Wizard Cards", "rowtypes": { "card": 5, "bean": 25, "star": 0 }, "skill": 0, "time": 1, "types": { "duels": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "buy-8", "cards-23", "cards-37", "bronze-20", "bronze-30" ] },
+			{ "difficulty": 18, "id": "bronze-4", "amount": 1, "name": "Buy {3-6} Bronze Wizard Cards", "rowtypes": { "card": 5, "bean": 25, "star": 0 }, "skill": 0, "time": 1, "types": { "duels": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "buy-8" ] },
 		],
 		"19": [
 			{ "difficulty": 19, "id": "diffindo-secrets", "amount": 1, "name": "Collect {8-10} Secrets in Diffindo", "rowtypes": { "card": 10, "bean": 0, "star": 25 }, "skill": 0, "time": 1, "types": { "diffindo": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
@@ -132,7 +132,7 @@ var bingoList = {
 			{ "difficulty": 21, "id": "bicorn-ingredients", "amount": 8, "name": "All 8 potion ingredients in Bicorn", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "bicorn": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 			{ "difficulty": 21, "id": "basilisk", "amount": 1, "name": "Defeat the Basilisk", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "chamber": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 			{ "difficulty": 21, "id": "spiders-out", "amount": 1, "name": "Kill {10-15} spiders outside the Aragog fight", "rowtypes": { "card": 0, "bean": 0, "star": 0 }, "skill": 0, "time": 1, "types": { "kill": 1, "selfsynergy": -1 }, "weight": 0, "triggers": null },
-			{ "difficulty": 21, "id": "buy-8", "amount": 1, "name": "Buy {6-10} Wizard Cards", "rowtypes": { "card": 10, "bean": 50, "star": 0 }, "skill": 0, "time": 1, "types": { "duels": 1, "selfsynergy": 0 }, "weight": 0, "triggers": [ "cards-23", "cards-37" ] },
+			{ "difficulty": 21, "id": "buy-8", "amount": 1, "name": "Buy {6-10} Wizard Cards", "rowtypes": { "card": 10, "bean": 50, "star": 0 }, "skill": 0, "time": 1, "types": { "duels": 1, "selfsynergy": 0 }, "weight": 0, "triggers": null },
 		],
 		"22": [
 			{ "difficulty": 22, "id": "completion-stars", "amount": 1, "name": "{4-5} completion stars", "rowtypes": { "card": 0, "bean": 0, "star": 25 }, "skill": 0, "time": 1, "types": { "multi": 1, "selfsynergy": -2 }, "weight": 0, "triggers": null },
