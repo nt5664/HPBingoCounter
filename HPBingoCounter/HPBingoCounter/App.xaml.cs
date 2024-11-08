@@ -1,8 +1,9 @@
-﻿using HPBingoCounter.Core;
-using HPBingoCounter.ViewModels;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Threading;
+using HPBingoCounter.Core;
+using HPBingoCounter.ViewModels;
 
 namespace HPBingoCounter
 {
@@ -16,7 +17,7 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
-        public static Version AppVersion => new(2, 0);
+        public static Version AppVersion => new(2, 1);
 
         private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
@@ -41,6 +42,8 @@ namespace HPBingoCounter
 
             MainWindow = window;
             MainWindow.Show();
+
+            CheckNewVersion();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -48,6 +51,26 @@ namespace HPBingoCounter
             DispatcherUnhandledException -= OnUnhandledException;
 
             base.OnExit(e);
+        }
+
+        private static async void CheckNewVersion()
+        {
+            try
+            {
+                bool updateAvailable = await GitHubInterop.IsNewerVersionAvailableAsync(AppVersion);
+                if (updateAvailable)
+                {
+                    if (MessageBox.Show("A newer version of the app is available. Would you like to download it?", "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        Process.Start(new ProcessStartInfo(GitHubInterop.RELEASES_URL) { UseShellExecute = true });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = $"Something went wrong; could not check for updates.{Environment.NewLine}Details: {ex.Message}";
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 

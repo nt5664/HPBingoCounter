@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Generator\HP2 v4.0\**" />
+    <Compile Remove="Generator\HP2 v4.1\**" />
+    <EmbeddedResource Remove="Generator\HP2 v4.0\**" />
+    <EmbeddedResource Remove="Generator\HP2 v4.1\**" />
+    <None Remove="Generator\HP2 v4.0\**" />
+    <None Remove="Generator\HP2 v4.1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.ClearScript.V8" Version="7.4.5" />
     <PackageReference Include="Microsoft.ClearScript.V8.Native.win-x64" Version="7.4.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -24,12 +33,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Generator\FS v1.0\generator.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Generator\HP2 v4.0\generator.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Generator\HP2 v4.1\generator.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Generator\HP2 v4.2\generator.js">
@@ -62,8 +65,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Generator\HP2 v4.0\" />
-    <Folder Include="Generator\HP2 v4.1\" />
     <Folder Include="Generator\HP2 v4.2\" />
     <Folder Include="Generator\HP2 v4.3\" />
     <Folder Include="Generator\HP2 v4.4\" />

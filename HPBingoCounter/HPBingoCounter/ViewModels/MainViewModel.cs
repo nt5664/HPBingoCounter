@@ -72,7 +72,7 @@ namespace HPBingoCounter.ViewModels
 
             OpenBingoWebsiteCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo("https://hpbingo.github.io/") { UseShellExecute = true }));
             BugReportCommand = new DelegateCommand(_ => new BugReportWindow().ShowDialog());
-            OpenUserManualCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo("https://github.com/nt5664/HPBingoCounter/wiki/User-Guide") { UseShellExecute = true }));
+            OpenUserManualCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo(GitHubInterop.USERGUIDE_URL) { UseShellExecute = true }));
         }
 
         public Array ComparisonModes => Enum.GetValues(typeof(BoardComparisonModes));

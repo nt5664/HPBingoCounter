@@ -3,13 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HPBingoCounter.Views"
+        xmlns:core="clr-namespace:System;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=System"
+        xmlns:counter="clr-namespace:HPBingoCounter"
         mc:Ignorable="d"
         Title="Bug Reporting"
         Height="300"
         Width="270"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <sys:UriBuilder 
+            x:Key="IssuesUri"
+            Host="{x:Static core:String.Empty}"
+            Scheme="{x:Static core:String.Empty}"
+            Path="{x:Static counter:GitHubInterop.ISSUES_URL}">
+        </sys:UriBuilder>
+    </Window.Resources>
+    
     <Grid
         Margin="10">
         <Grid.RowDefinitions>
@@ -30,7 +41,7 @@
                     Text="BoostingMantis" />
                 <Run Text=" or submit the issue on the app's " />
                 <Hyperlink
-                    NavigateUri="https://github.com/nt5664/HPBingoCounter/issues"
+                    NavigateUri="{Binding Uri, Source={StaticResource IssuesUri}}"
                     RequestNavigate="HyperlinkOpenUrl">
                     <TextBlock Text="GitHub page" />
                 </Hyperlink>

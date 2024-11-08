@@ -9,14 +9,6 @@
              mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="660"
              d:DataContext="{d:DesignInstance vm:BingoBoardViewModel, IsDesignTimeCreatable=False}">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Styles/BoardStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Styles/ButtonStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid
         DataContext="{Binding BoardViewModel, Mode=OneTime}"
         Margin="5">

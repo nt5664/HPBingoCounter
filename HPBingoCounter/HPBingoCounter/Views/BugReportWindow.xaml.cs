@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HPBingoCounter.Views
@@ -25,9 +26,10 @@ namespace HPBingoCounter.Views
             InitializeComponent();
         }
 
-        private void HyperlinkOpenUrl(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        private void HyperlinkOpenUrl(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo("https://github.com/nt5664/HPBingoCounter/issues") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
         }
     }
 }
