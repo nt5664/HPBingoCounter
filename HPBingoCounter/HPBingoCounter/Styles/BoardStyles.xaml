@@ -28,6 +28,9 @@
         TargetType="{x:Type Border}"
         BasedOn="{StaticResource BoardInfoBackgroundStyle}">
         <Style.Triggers>
+            <DataTrigger Binding="{Binding IsBoardClaimed, Mode=OneWay}" Value="True">
+                <Setter Property="Background" Value="Crimson" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding IsBoardCompleted, Mode=OneWay}" Value="True">
                 <Setter Property="Background" Value="SeaGreen" />
             </DataTrigger>

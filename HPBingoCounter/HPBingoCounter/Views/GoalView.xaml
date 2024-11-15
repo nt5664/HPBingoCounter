@@ -12,6 +12,7 @@
         Style="{StaticResource GoalCardStyle}">
         <Border.InputBindings>
             <MouseBinding Gesture="RightClick" Command="{Binding TogglePinCommand, Mode=OneTime}" />
+            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ClaimGoalCommand, Mode=OneTime}" />
         </Border.InputBindings>
         
         <Grid>
@@ -33,7 +34,7 @@
                     Fill="White" 
                     Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
             </Canvas>
-            
+
             <TextBlock
                 Grid.Row="0"
                 HorizontalAlignment="Center"
@@ -93,6 +94,22 @@
                     </TextBlock.Inlines>
                 </TextBlock>
             </Grid>
+
+            <Viewbox
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+                <Canvas
+                    Width="24"
+                    Height="24"
+                    Visibility="{Binding IsClaimed, Mode=OneWay, Converter={c:ShowWhenTrue}}">
+                    <Path
+                        Stroke="Red"
+                        Fill="DarkRed" 
+                        Data="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+                </Canvas>
+            </Viewbox>
         </Grid>
     </Border>
 </UserControl>

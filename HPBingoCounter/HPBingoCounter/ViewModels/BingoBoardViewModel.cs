@@ -125,6 +125,7 @@ namespace HPBingoCounter.ViewModels
             BoardVersion = "No board loaded";
             ComparisonMode = BoardComparisonModes.Single;
             CompletedGoals = 0;
+            ClaimedGoals = 0;
 
             SaveStateCommand = new DelegateCommand(_ => ProcessGoals(g => _savedState[g.GetGoalHashCode()] = g.Count), CanExecuteCommand);
             LoadSavedStateCommand = new DelegateCommand(_ => ProcessGoals(g => g.Count = _savedState[g.GetGoalHashCode()]), CanExecuteCommand);
@@ -186,15 +187,24 @@ namespace HPBingoCounter.ViewModels
 
         public bool IsBoardCompleted => CompletedGoals >= RequiredGoals;
 
+        public bool IsBoardClaimed => ClaimedGoals >= RequiredGoals;
+
         private BoardComparisonModes _comparisonMode;
         public BoardComparisonModes ComparisonMode
         {
             get => _comparisonMode;
             set 
             {
-                if (!SetValue(ref _comparisonMode, value, nameof(ComparisonMode), nameof(RequiredGoals), nameof(IsBoardCompleted)))
+                if (!SetValue(ref _comparisonMode, value, nameof(ComparisonMode), nameof(RequiredGoals), nameof(IsBoardCompleted), nameof(IsBoardClaimed)))
                     return;
 
+                bool isEliminationMode = value.Equals(BoardComparisonModes.Elimination);
+                foreach (BingoGoalViewModel goal in Goals)
+                {
+                    goal.IsClaimEnabled = isEliminationMode;
+                }
+
+                RaisePropertyChanged(nameof(IsBoardCompleted));
                 CompletedGoals = value.Equals(BoardComparisonModes.Elimination) || value.Equals(BoardComparisonModes.Blackout) ?
                     Goals.Count(x => x.IsCompleted) :
                     _bingos.Count(x => x.IsBingo);
@@ -222,6 +232,13 @@ namespace HPBingoCounter.ViewModels
         {
             get => _completedGoals;
             private set => SetValue(ref _completedGoals, value, nameof(CompletedGoals), nameof(IsBoardCompleted));
+        }
+
+        private int _claimedGoals;
+        public int ClaimedGoals
+        {
+            get => _claimedGoals;
+            private set => SetValue(ref _claimedGoals, value, nameof(ClaimedGoals), nameof(IsBoardClaimed));
         }
 
         public void LoadBoard(HPBingoBoardDto board)
@@ -260,7 +277,7 @@ namespace HPBingoCounter.ViewModels
                     }
 
                     BingoGoalViewModel goalVm = Goals[idx];
-                    goalVm.SetGoal(goal);
+                    goalVm.SetGoal(goal, ComparisonMode.Equals(BoardComparisonModes.Elimination));
 
                     int goalHash = goalVm.GetGoalHashCode();
                     _savedState.Add(goalHash, 0);
@@ -300,6 +317,7 @@ namespace HPBingoCounter.ViewModels
             Seed = board.Seed;
             CardType = board.CardType;
             CompletedGoals = 0;
+            ClaimedGoals = 0;
 
             RaisePropertyChanged(nameof(IsBoardEmpty), nameof(IsBoardCompleted), nameof(RequiredGoals));
             SaveStateCommand.RaiseCanExecuteChanged();
@@ -383,6 +401,10 @@ namespace HPBingoCounter.ViewModels
                 }
 
                 CompletedGoals += diff;
+            }
+            else if (e.PropertyName.Equals(nameof(BingoGoalViewModel.IsClaimed)))
+            {
+                ClaimedGoals += vm.IsClaimed ? 1 : -1;
             }
         }
 

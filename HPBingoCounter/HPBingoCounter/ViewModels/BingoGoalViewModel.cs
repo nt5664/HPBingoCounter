@@ -19,7 +19,7 @@ namespace HPBingoCounter.ViewModels
                     return;
 
                 CounterSet?.Invoke(this, new GoalCounterChangedEventArgs(_goal.Triggers, 1));
-            }, _ => _goal is not null && !IsCompleted);
+            }, _ => _goal is not null && !IsClaimed && !IsCompleted);
             ReductCommand = new DelegateCommand(_ => 
             { 
                 --Count;
@@ -27,10 +27,13 @@ namespace HPBingoCounter.ViewModels
                     return;
 
                 CounterSet?.Invoke(this, new GoalCounterChangedEventArgs(_goal.Triggers, -1));
-            }, _ => _goal is not null && Count > 0);
+            }, _ => _goal is not null && !IsClaimed && Count > 0);
             TogglePinCommand = new DelegateCommand(_ => IsPinned = !IsPinned);
+            ClaimGoalCommand = new DelegateCommand(_ => IsClaimed = !IsClaimed, _ => IsClaimEnabled);
 
             IsPinned = false;
+            IsClaimed = false;
+            IsClaimEnabled = false;
         }
 
         public DelegateCommand IncrementCommand { get; }
@@ -38,6 +41,8 @@ namespace HPBingoCounter.ViewModels
         public DelegateCommand ReductCommand { get; }
 
         public DelegateCommand TogglePinCommand { get; }
+
+        public DelegateCommand ClaimGoalCommand { get; }
 
         public string? Id => _goal?.Id;
 
@@ -54,6 +59,36 @@ namespace HPBingoCounter.ViewModels
         {
             get => _isPinned;
             set => SetValue(ref _isPinned, value);
+        }
+
+        private bool _isClaimEnabled;
+        public bool IsClaimEnabled
+        {
+            get => _isClaimEnabled;
+            set
+            {
+                if (!SetValue(ref _isClaimEnabled, value))
+                    return;
+
+                if (!value)
+                    IsClaimed = false;
+
+                ClaimGoalCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool _isClaimed;
+        public bool IsClaimed
+        {
+            get => _isClaimed;
+            set 
+            {
+                if (!SetValue(ref _isClaimed, value, nameof(IsClaimed), nameof(GoalState)))
+                    return;
+
+                IncrementCommand.RaiseCanExecuteChanged();
+                ReductCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private int _count;
@@ -81,6 +116,9 @@ namespace HPBingoCounter.ViewModels
                 if (_goal is null)
                     return GoalStates.None;
 
+                if (IsClaimed)
+                    return GoalStates.Claimed;
+
                 if (Count == 0)
                     return GoalStates.Default;
 
@@ -91,14 +129,17 @@ namespace HPBingoCounter.ViewModels
             }
         }
 
-        public void SetGoal(HPBingoGoal goal)
+        public void SetGoal(HPBingoGoal goal, bool enableClaim)
         {
             _goal = goal;
             Count = 0;
             IsPinned = false;
+            IsClaimEnabled = enableClaim;
+            IsClaimed = false;
             RaisePropertyChanged(nameof(Id), nameof(Name), nameof(RequiredAmount), nameof(UniqueAmount));
             IncrementCommand.RaiseCanExecuteChanged();
             ReductCommand.RaiseCanExecuteChanged();
+            ClaimGoalCommand.RaiseCanExecuteChanged();
         }
 
         public int GetGoalHashCode()

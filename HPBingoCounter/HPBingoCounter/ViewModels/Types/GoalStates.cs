@@ -5,6 +5,7 @@
         None,
         Default,
         Active,
-        Completed
+        Completed,
+        Claimed
     }
 }

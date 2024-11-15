@@ -17,7 +17,7 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
-        public static Version AppVersion => new(2, 1);
+        public static Version AppVersion => new(2, 2);
 
         private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
