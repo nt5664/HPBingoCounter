@@ -344,6 +344,14 @@ namespace HPBingoCounter.ViewModels
             base.Dispose();
         }
 
+        public void RefreshGoalForeground()
+        {
+            foreach (var goal in Goals)
+            {
+                goal.RefreshPlayerColor();
+            }
+        }
+
         private bool CanExecuteCommand(object? _)
         {
             return Goals.Count > 0;

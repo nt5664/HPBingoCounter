@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/PlayerColors.xaml" />
                 <ResourceDictionary Source="Styles/BoardStyles.xaml" />
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Styles/GoalStyles.xaml" />

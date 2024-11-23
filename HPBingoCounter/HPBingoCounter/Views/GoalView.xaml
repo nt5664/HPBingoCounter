@@ -42,7 +42,20 @@
                 FontWeight="Bold"
                 TextAlignment="Center"
                 TextWrapping="Wrap"
-                Text="{Binding Name, Mode=OneWay, TargetNullValue='NULL', FallbackValue='INVALID DATA'}" />
+                Text="{Binding Name, Mode=OneWay, TargetNullValue='NULL', FallbackValue='INVALID DATA'}">
+                <TextBlock.Foreground>
+                    <MultiBinding
+                        Mode="OneWay"
+                        Converter="{c:TextColorByCompletionConverter}">
+                        <Binding
+                            Path="IsCompleted"
+                            Mode="OneWay" />
+                        <Binding
+                            Path="PlayerColor"
+                            Mode="OneWay" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
 
             <Grid
                 Grid.Row="1">
@@ -85,6 +98,18 @@
                     TextAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="14">
+                    <TextBlock.Foreground>
+                        <MultiBinding
+                            Mode="OneWay"
+                            Converter="{c:TextColorByCompletionConverter}">
+                            <Binding
+                                Path="IsCompleted"
+                                Mode="OneWay" />
+                            <Binding
+                                Path="PlayerColor"
+                                Mode="OneWay" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
                     <TextBlock.Inlines>
                         <Run
                             Text="{Binding Count, Mode=OneWay, TargetNullValue='0', FallbackValue='-'}"
@@ -106,7 +131,8 @@
                     Visibility="{Binding IsClaimed, Mode=OneWay, Converter={c:ShowWhenTrue}}">
                     <Path
                         Stroke="Red"
-                        Fill="DarkRed" 
+                        StrokeThickness=".75"
+                        Fill="{DynamicResource ClaimedColor}" 
                         Data="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
                 </Canvas>
             </Viewbox>

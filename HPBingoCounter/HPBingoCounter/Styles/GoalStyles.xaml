@@ -28,8 +28,8 @@
         Center="0.5,0.5"
         RadiusX="0.5"
         RadiusY="0.5">
-        <GradientStop Color="Yellow" />
-        <GradientStop Color="Goldenrod" Offset="1" />
+        <GradientStop Color="AliceBlue" />
+        <GradientStop Color="Khaki" Offset="1" />
     </RadialGradientBrush>
 
     <RadialGradientBrush
@@ -41,6 +41,14 @@
         <GradientStop Color="DimGray" />
         <GradientStop Color="DarkSlateGray" Offset="1" />
     </RadialGradientBrush>
+
+    <SolidColorBrush
+        x:Key="ClaimedColor"
+        Color="DarkRed" />
+
+    <SolidColorBrush
+        x:Key="GoalTextColor"
+        Color="Black" />
 
     <Style
         x:Key="GoalCardStyle"
@@ -62,7 +70,7 @@
                 <Setter Property="Background" Value="{StaticResource ActiveCardBackground}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding GoalState}" Value="{x:Static t:GoalStates.Completed}">
-                <Setter Property="Background" Value="{StaticResource CompletedCardBackground}" />
+                <Setter Property="Background" Value="{DynamicResource CompletedCardBackground}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding GoalState}" Value="{x:Static t:GoalStates.None}">
                 <Setter Property="Background" Value="{StaticResource DefaultCardBackground}" />

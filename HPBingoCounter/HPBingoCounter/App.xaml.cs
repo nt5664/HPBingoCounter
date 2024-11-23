@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 using HPBingoCounter.Core;
+using HPBingoCounter.Types;
 using HPBingoCounter.ViewModels;
 
 namespace HPBingoCounter
@@ -17,7 +19,30 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
-        public static Version AppVersion => new(2, 2);
+        public static Version AppVersion => new(2, 3);
+
+        public static PlayerColors PlayerColor { get; private set; }
+
+        public static PlayerColors OpponentColor { get; private set; }
+
+        public static void SetPlayerColor(PlayerColors color)
+        {
+            App app = (App)Current;
+            string resourceKey = $"{color}PlayerBackground";
+            Brush newColor = (Brush)app.Resources[resourceKey];
+            app.Resources["CompletedCardBackground"] = newColor;
+            app.Resources["GoalTextColor"] = color.Equals(PlayerColors.Navy) ? Brushes.White : Brushes.Black;
+            PlayerColor = color;
+        }
+
+        public static void SetClaimedColor(PlayerColors color)
+        {
+            App app = (App)Current;
+            string resourceKey = $"{color}PlayerBackground";
+            Brush newColor = (Brush)app.Resources[resourceKey];
+            app.Resources["ClaimedColor"] = newColor;
+            OpponentColor = color;
+        }
 
         private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {

@@ -73,6 +73,13 @@ namespace HPBingoCounter.ViewModels
             OpenBingoWebsiteCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo("https://hpbingo.github.io/") { UseShellExecute = true }));
             BugReportCommand = new DelegateCommand(_ => new BugReportWindow().ShowDialog());
             OpenUserManualCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo(GitHubInterop.USERGUIDE_URL) { UseShellExecute = true }));
+            OpenPlayerColorsDialogCommand = new DelegateCommand(_ => 
+            {
+                if (new PlayerColorsWindow().ShowDialog() == true)
+                {
+                    BoardViewModel.RefreshGoalForeground();
+                }
+            });
         }
 
         public Array ComparisonModes => Enum.GetValues(typeof(BoardComparisonModes));
@@ -94,6 +101,8 @@ namespace HPBingoCounter.ViewModels
         public DelegateCommand BugReportCommand { get; }
 
         public DelegateCommand OpenUserManualCommand { get; }
+
+        public DelegateCommand OpenPlayerColorsDialogCommand { get; }
 
         public string WindowTitle => $"HP Bingo Counter [v{App.AppVersion}] [Config: {ActiveConfigFile ?? "NO CONFIG LOADED"}]";
 

@@ -1,5 +1,6 @@
 ﻿using HPBingoCounter.Commands;
 using HPBingoCounter.Core.Models;
+using HPBingoCounter.Types;
 using HPBingoCounter.ViewModels.Types;
 
 namespace HPBingoCounter.ViewModels
@@ -47,6 +48,8 @@ namespace HPBingoCounter.ViewModels
         public string? Id => _goal?.Id;
 
         public string Name => _goal?.Name ?? "NULL";
+
+        public PlayerColors PlayerColor => App.PlayerColor;
 
         public int RequiredAmount => _goal?.RequiredAmount ?? -1;
 
@@ -149,6 +152,11 @@ namespace HPBingoCounter.ViewModels
         public int GetGoalHashCode()
         {
             return _goal is null ? int.MinValue : _goal.Name.GetHashCode() ^ _goal.RequiredAmount.GetHashCode();
+        }
+
+        public void RefreshPlayerColor()
+        {
+            RaisePropertyChanged(nameof(PlayerColor));
         }
     }
 }

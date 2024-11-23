@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <RadialGradientBrush
+        x:Key="OrangePlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="Orange" />
+        <GradientStop Color="DarkOrange" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="RedPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="Red" />
+        <GradientStop Color="DarkRed" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="BluePlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="#ff77aafc" />
+        <GradientStop Color="#458cff" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="GreenPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="LightGreen" />
+        <GradientStop Color="MediumSeaGreen" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="PurplePlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="MediumPurple" />
+        <GradientStop Color="DarkViolet" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="NavyPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="#ff0d48b5" />
+        <GradientStop Color="#ff022b75" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="TealPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="DarkTurquoise" />
+        <GradientStop Color="Teal" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="BrownPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="#ffab5c23" />
+        <GradientStop Color="#ff6d3811" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="PinkPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="Pink" />
+        <GradientStop Color="DeepPink" Offset="1" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush
+        x:Key="YellowPlayerBackground"
+        GradientOrigin="0.5,0.5"
+        Center="0.5,0.5"
+        RadiusX="0.5"
+        RadiusY="0.5">
+        <GradientStop Color="#ffd8d014" />
+        <GradientStop Color="#ffc1ba0b" Offset="1" />
+    </RadialGradientBrush>
+</ResourceDictionary>

@@ -71,6 +71,9 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
             <MenuItem
+                Header="Player Colors"
+                Command="{Binding OpenPlayerColorsDialogCommand, Mode=OneTime}" />
+            <MenuItem
                 Header="Bingo Website"
                 HeaderTemplate="{StaticResource OpenExternalHeaderTemplate}"
                 Command="{Binding OpenBingoWebsiteCommand, Mode=OneTime}" />
