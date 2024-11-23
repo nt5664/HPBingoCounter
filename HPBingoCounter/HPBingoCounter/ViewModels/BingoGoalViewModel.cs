@@ -52,7 +52,7 @@ namespace HPBingoCounter.ViewModels
 
         public int UniqueAmount => _goal?.UniqueAmount ?? -1;
 
-        public bool IsCompleted => GoalState.Equals(GoalStates.Completed);
+        public bool IsCompleted => GoalState.Equals(GoalStates.Completed) && !IsClaimed;
 
         private bool _isPinned;
         public bool IsPinned
@@ -83,8 +83,12 @@ namespace HPBingoCounter.ViewModels
             get => _isClaimed;
             set 
             {
+                bool isCompleted = Count == RequiredAmount;
                 if (!SetValue(ref _isClaimed, value, nameof(IsClaimed), nameof(GoalState)))
                     return;
+
+                if (isCompleted)
+                    RaisePropertyChanged(nameof(IsCompleted));
 
                 IncrementCommand.RaiseCanExecuteChanged();
                 ReductCommand.RaiseCanExecuteChanged();

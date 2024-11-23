@@ -319,7 +319,7 @@ namespace HPBingoCounter.ViewModels
             CompletedGoals = 0;
             ClaimedGoals = 0;
 
-            RaisePropertyChanged(nameof(IsBoardEmpty), nameof(IsBoardCompleted), nameof(RequiredGoals));
+            RaisePropertyChanged(nameof(IsBoardEmpty), nameof(IsBoardCompleted), nameof(RequiredGoals), nameof(IsBoardClaimed));
             SaveStateCommand.RaiseCanExecuteChanged();
             LoadSavedStateCommand.RaiseCanExecuteChanged();
             ClearSavedStateCommand.RaiseCanExecuteChanged();
