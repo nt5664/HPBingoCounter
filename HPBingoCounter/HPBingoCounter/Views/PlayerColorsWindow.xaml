@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Player Colors"
         Height="360"
-        Width="400"
+        Width="450"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance vm:PlayerColorSelectorViewModel, IsDesignTimeCreatable=False}">
@@ -333,6 +333,31 @@
                         Text="Yellow" />
                 </Button>
             </Grid>
+
+            <StackPanel
+                Grid.Row="4"
+                Orientation="Horizontal"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Visibility="{Binding ShowSameColorUsedWarning, Mode=OneWay, Converter={c:ShowWhenTrue}}">
+                <Canvas
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,3"
+                    Width="25"
+                    Height="25">
+                    <Path
+                        Canvas.Top="1"
+                        Fill="Goldenrod"
+                        Data="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z" />
+                </Canvas>
+                <TextBlock
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,8"
+                    FontWeight="Bold"
+                    FontStyle="Italic"
+                    FontSize="12"
+                    Text="The same color is used for both players!" />
+            </StackPanel>
 
             <StackPanel
                 Grid.Row="4"

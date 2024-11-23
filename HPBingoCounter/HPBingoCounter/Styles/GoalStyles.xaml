@@ -46,10 +46,6 @@
         x:Key="ClaimedColor"
         Color="DarkRed" />
 
-    <SolidColorBrush
-        x:Key="GoalTextColor"
-        Color="Black" />
-
     <Style
         x:Key="GoalCardStyle"
         TargetType="{x:Type Border}">

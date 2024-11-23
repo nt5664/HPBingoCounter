@@ -19,7 +19,7 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
-        public static Version AppVersion => new(2, 3);
+        public static Version AppVersion => new(2, 3, 1);
 
         public static PlayerColors PlayerColor { get; private set; }
 
@@ -31,7 +31,6 @@ namespace HPBingoCounter
             string resourceKey = $"{color}PlayerBackground";
             Brush newColor = (Brush)app.Resources[resourceKey];
             app.Resources["CompletedCardBackground"] = newColor;
-            app.Resources["GoalTextColor"] = color.Equals(PlayerColors.Navy) ? Brushes.White : Brushes.Black;
             PlayerColor = color;
         }
 
