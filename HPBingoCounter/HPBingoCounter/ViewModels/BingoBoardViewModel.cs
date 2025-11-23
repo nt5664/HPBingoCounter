@@ -136,6 +136,10 @@ namespace HPBingoCounter.ViewModels
                 {
                     ClearSavedState();
                     LoadSavedStateCommand.Execute(null);
+                    foreach (var goal in Goals)
+                    {
+                        goal.IsClaimed = false;
+                    }
                 }
             }, CanExecuteCommand);
 
