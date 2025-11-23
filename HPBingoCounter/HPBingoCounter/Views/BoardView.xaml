@@ -107,15 +107,27 @@
                         Grid.Row="0"
                         Style="{StaticResource BoardInfoHeaderStyle}"
                         Text="Progress" />
-                    <TextBlock
+                    <StackPanel
                         Grid.Row="1"
-                        Style="{StaticResource BoardInfoValueStyle}">
-                        <TextBlock.Inlines>
-                            <Run Text="{Binding CompletedGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                            <Run Text=" / " />
-                            <Run Text="{Binding RequiredGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
-                        </TextBlock.Inlines>
-                    </TextBlock>
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                        <TextBlock
+                            Style="{StaticResource BoardInfoValueStyle}">
+                            <TextBlock.Inlines>
+                                <Run Text="{Binding CompletedGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                                <Run Text=" / " />
+                                <Run Text="{Binding RequiredGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-'}" />
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock
+                            Style="{StaticResource BoardInfoValueStyle}"
+                            Margin="5,0,0,0"
+                            FontWeight="Normal"
+                            Text="{Binding ClaimedGoals, Mode=OneWay, TargetNullValue='NULL', FallbackValue='-', StringFormat={}(vs. {0})}" 
+                            Visibility="{Binding ComparisonMode, Mode=OneWay, Converter={c:EnumToVisibilityConverter}, ConverterParameter='Elimination', FallbackValue={x:Static Visibility.Collapsed}}"
+                            ToolTip="Opponent's score"
+                            ToolTipService.ShowDuration="60000" />
+                    </StackPanel>
                 </Grid>
             </Border>
 
