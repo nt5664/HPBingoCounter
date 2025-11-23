@@ -19,7 +19,7 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
-        public static Version AppVersion => new(2, 3, 1);
+        public static Version AppVersion => new(2, 4, 0);
 
         public static PlayerColors PlayerColor { get; private set; }
 
@@ -73,6 +73,7 @@ namespace HPBingoCounter
         protected override void OnExit(ExitEventArgs e)
         {
             DispatcherUnhandledException -= OnUnhandledException;
+            UserSettings.Save();
 
             base.OnExit(e);
         }

@@ -10,10 +10,11 @@
         Title="{Binding WindowTitle, Mode=OneWay, TargetNullValue='HP Bingo Counter [App Corrupted]', FallbackValue='HP Bingo Counter [App Corrupted]'}"
         MinWidth="635"
         MinHeight="730"
-        Height="810"
-        Width="678"
+        Height="{Binding WindowHeight, Mode=TwoWay, TargetNullValue=810, FallbackValue=810}"
+        Width="{Binding WindowWidth, Mode=TwoWay, TargetNullValue=678, FallbackValue=678}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
+        Topmost="True"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <BitmapImage x:Key="OpenInBrowserImage" UriSource="/Images/open-in-browser.png" />

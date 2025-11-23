@@ -80,6 +80,12 @@ namespace HPBingoCounter.ViewModels
                     BoardViewModel.RefreshGoalForeground();
                 }
             });
+
+            if (UserSettings.TryLoad())
+            {
+                WindowWidth = UserSettings.Current.WindowWidth;
+                WindowHeight = UserSettings.Current.WindowHeight;
+            }
         }
 
         public Array ComparisonModes => Enum.GetValues(typeof(BoardComparisonModes));
@@ -123,6 +129,28 @@ namespace HPBingoCounter.ViewModels
         public BoardConfigViewModel NewBoardConfigViewModel { get; }
 
         public BingoBoardViewModel BoardViewModel { get; }
+
+        private double _windowWidth;
+        public double WindowWidth
+        {
+            get => _windowWidth;
+            set
+            {
+                if (SetValue(ref _windowWidth, value))
+                    UserSettings.Current.WindowWidth = value;
+            }
+        }
+
+        private double _windowHeight;
+        public double WindowHeight
+        {
+            get => _windowHeight;
+            set
+            {
+                if (SetValue(ref _windowHeight, value))
+                    UserSettings.Current.WindowHeight = value;
+            }
+        }
 
         private void HandleNewBoard(HPBingoBoardDto newGoals)
         {
