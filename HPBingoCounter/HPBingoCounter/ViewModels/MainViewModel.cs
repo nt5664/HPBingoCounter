@@ -5,7 +5,6 @@ using HPBingoCounter.Core.Models;
 using HPBingoCounter.ViewModels.Types;
 using HPBingoCounter.Views;
 using System.Diagnostics;
-using System.Text;
 using System.Windows;
 
 namespace HPBingoCounter.ViewModels
@@ -71,11 +70,11 @@ namespace HPBingoCounter.ViewModels
             });
 
             OpenBingoWebsiteCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo("https://hpbingo.github.io/") { UseShellExecute = true }));
-            BugReportCommand = new DelegateCommand(_ => new BugReportWindow().ShowDialog());
+            BugReportCommand = new DelegateCommand(_ => CreateDialog<BugReportWindow>().ShowDialog());
             OpenUserManualCommand = new DelegateCommand(_ => Process.Start(new ProcessStartInfo(GitHubInterop.USERGUIDE_URL) { UseShellExecute = true }));
             OpenPlayerColorsDialogCommand = new DelegateCommand(_ => 
             {
-                if (new PlayerColorsWindow().ShowDialog() == true)
+                if (CreateDialog<PlayerColorsWindow>().ShowDialog() == true)
                 {
                     BoardViewModel.RefreshGoalForeground();
                 }

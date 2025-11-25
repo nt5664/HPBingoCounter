@@ -19,7 +19,7 @@ namespace HPBingoCounter
             DispatcherUnhandledException += OnUnhandledException;
         }
 
-        public static Version AppVersion => new(2, 4, 0);
+        public static Version AppVersion => new(2, 4, 1);
 
         public static PlayerColors PlayerColor { get; private set; }
 

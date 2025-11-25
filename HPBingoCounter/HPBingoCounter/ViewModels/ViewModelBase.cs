@@ -66,6 +66,15 @@ namespace HPBingoCounter.ViewModels
             }
         }
 
+        protected static T CreateDialog<T>() where T : Window, new()
+        {
+            return new T()
+            {
+                Owner = Application.Current.MainWindow,
+                Topmost = true
+            };
+        }
+
         private static void ShowError(Exception ex)
         {
             StringBuilder sb = new StringBuilder($"Error!{Environment.NewLine}");
