@@ -80,6 +80,8 @@ namespace HPBingoCounter.ViewModels
                 }
             });
 
+            ToggleTopmostCommand = new DelegateCommand(_ => ForceTopmost = !ForceTopmost);
+
             if (UserSettings.TryLoad())
             {
                 WindowWidth = UserSettings.Current.WindowWidth;
@@ -109,6 +111,8 @@ namespace HPBingoCounter.ViewModels
 
         public DelegateCommand OpenPlayerColorsDialogCommand { get; }
 
+        public DelegateCommand ToggleTopmostCommand { get; }
+
         public string WindowTitle => $"HP Bingo Counter [v{App.AppVersion}] [Config: {ActiveConfigFile ?? "NO CONFIG LOADED"}]";
 
         private bool _selectNewBoard;
@@ -129,25 +133,33 @@ namespace HPBingoCounter.ViewModels
 
         public BingoBoardViewModel BoardViewModel { get; }
 
-        private double _windowWidth;
         public double WindowWidth
         {
-            get => _windowWidth;
+            get => UserSettings.Current.WindowWidth;
             set
             {
-                if (SetValue(ref _windowWidth, value))
-                    UserSettings.Current.WindowWidth = value;
+                UserSettings.Current.WindowWidth = value;
+                RaisePropertyChanged(nameof(WindowWidth));
             }
         }
 
-        private double _windowHeight;
         public double WindowHeight
         {
-            get => _windowHeight;
+            get => UserSettings.Current.WindowHeight;
             set
             {
-                if (SetValue(ref _windowHeight, value))
-                    UserSettings.Current.WindowHeight = value;
+                UserSettings.Current.WindowHeight = value;
+                RaisePropertyChanged(nameof(WindowHeight));
+            }
+        }
+
+        public bool ForceTopmost
+        {
+            get => UserSettings.Current.ForceTopmost;
+            set
+            {
+                UserSettings.Current.ForceTopmost = value;
+                RaisePropertyChanged(nameof(ForceTopmost));
             }
         }
 

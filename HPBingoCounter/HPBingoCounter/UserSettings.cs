@@ -45,5 +45,8 @@ namespace HPBingoCounter
 
         [JsonProperty]
         public double WindowHeight { get; set; } = 810;
+
+        [JsonProperty]
+        public bool ForceTopmost { get; set; } = false;
     }
 }

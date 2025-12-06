@@ -14,7 +14,7 @@
         Width="{Binding WindowWidth, Mode=TwoWay, TargetNullValue=678, FallbackValue=678}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
-        Topmost="True"
+        Topmost="{Binding ForceTopmost, Mode=OneWay, TargetNullValue=False, FallbackValue=False}"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <BitmapImage x:Key="OpenInBrowserImage" UriSource="/Images/open-in-browser.png" />
@@ -108,6 +108,11 @@
             </MenuItem>
             <MenuItem
                 Header="Help">
+                <MenuItem
+                    Header="Always on top"
+                    IsCheckable="True"
+                    IsChecked="{Binding ForceTopmost, Mode=OneWay}"
+                    Command="{Binding ToggleTopmostCommand, Mode=OneTime}" />
                 <MenuItem
                     Header="User Manual"
                     HeaderTemplate="{StaticResource OpenExternalHeaderTemplate}"
